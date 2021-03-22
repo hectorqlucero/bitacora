@@ -17,23 +17,18 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 1"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 2"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 3"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 4"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 5"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Bitacora"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Inventario de Vehiculos"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Choferes"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Vehiculos"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Sucursales"]]
+      [:li.nav-item [:a.nav-link {:href "#"} "Pizarra"]]
       [:li.nav-item.dropdown
        [:a.nav-link.dropdown-toggle {:href "#"
                                      :id "navdrop"
                                      :data-toggle "dropdown"} "Administrar"]
        [:div.dropdown-menu
         (build-admin)]]
-      (when
-        (or
-          (= (user-level) "A")
-          (= (user-level) "S"))
-        [:li.nav-item [:a.nav-link {:href "/admin/users"} "Usuarios"]])
-      [:li.nav-item [:a.nav-link {:href "#"} "Menu 6"]]
       [:li.nav-item [:a.nav-link {:href "/home/logoff"} "Salir"]]]]]))
 
 (defn menus-public []
