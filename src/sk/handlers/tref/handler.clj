@@ -32,6 +32,20 @@
   (first (Query db [get-users-email-sql email])))
 ;; End get-users-email
 
+;; Start get-nserie
+(def get-nserie-sql
+  "SELECT
+  num_serie AS value,
+  num_serie as text
+  FROM vehiculos
+  ORDER BY num_serie")
+
+(defn get-nserie
+  "Regresa todos los numeros de serie de los vehiculos"
+  []
+  (Query db [get-nserie-sql]))
+;; End get-nserie
+
 (defn months
   "Returns months name ex: (months)"
   []

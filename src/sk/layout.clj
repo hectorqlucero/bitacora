@@ -17,7 +17,7 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      [:li.nav-item [:a.nav-link {:href "#"} "Bitacora"]]
+      [:li.nav-item [:a.nav-link {:href "/bitacora"} "Bitacora"]]
       [:li.nav-item [:a.nav-link {:href "#"} "Inventario de Vehiculos"]]
       [:li.nav-item [:a.nav-link {:href "#"} "Choferes"]]
       [:li.nav-item [:a.nav-link {:href "#"} "Vehiculos"]]

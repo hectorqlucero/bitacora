@@ -12,6 +12,7 @@
   (GET "/table_ref/months" [] (generate-string (table_ref/months)))
   (GET "/table_ref/years/:pyears/:nyears" [pyears nyears] (generate-string (table_ref/years pyears nyears)))
   (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
+  (GET "/table_ref/nserie" [] (generate-string (table_ref/get-nserie)))
   ;; End table_ref
 
   ;; Start home
