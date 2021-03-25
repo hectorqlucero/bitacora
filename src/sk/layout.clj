@@ -15,7 +15,11 @@
 (defn menus-private []
   (list
    [:nav.navbar.navbar-expand-sm.navbar-dark.bg-primary.fixed-top
-    [:a.navbar-brand {:href "/"} (:site-name config)]
+    [:a.navbar-brand {:href "#"} [:img {:src "/images/lfp.png"
+                                        :alt ""
+                                        :width "30"
+                                        :height "24"
+                                        :class "d-inline-block align-text-top"}] "Bitacora"]
     [:button.navbar-toggler {:type "button"
                              :data-toggle "collapse"
                              :data-target "#collapsibleNavbar"}

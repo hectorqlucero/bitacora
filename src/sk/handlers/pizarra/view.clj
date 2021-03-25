@@ -17,16 +17,16 @@
     (map build-vehiculos-row rows)))
 
 (defn build-vehiculos-table []
-  [:table.table.table-bordered.table-hover
+  [:table.table.caption-top.table-bordered.table-hover
    [:caption "Vehiculos"]
-   [:thead.thead-dark
+   [:thead.thead-light
     [:tr
-     [:th "Sucursal"]
-     [:th "Chofer"]
-     [:th "Vehiculo"]
-     [:th "Numero de Serie"]
-     [:th "Modelo"]
-     [:th "modelo Año"]]]
+     [:th {:scope "col"} "Sucursal"]
+     [:th {:scope "col"} "Chofer"]
+     [:th {:scope "col"} "Vehiculo"]
+     [:th {:scope "col"} "Numero de Serie"]
+     [:th {:scope "col"} "Modelo"]
+     [:th {:scope "col"} "modelo Año"]]]
    [:tbody
     (map build-vehiculo-table-body (sucursales))]])
 ;; End vehiculos table
@@ -48,19 +48,19 @@
   (map build-bitacoras-row (bitacoras)))
 
 (defn build-bitacora-table []
-  [:table.table.table-bordered.table-hover
+  [:table.table.caption-top.table-bordered.table-hover
    [:caption "Bitacora"]
-   [:thead.thead-dark
+   [:thead.thead-light
     [:tr
-     [:th "Sucursal"]
-     [:th "Chofer"]
-     [:th "Vehiculo"]
-     [:th "Numero de Serie"]
-     [:th "Modelo"]
-     [:th "Modelo Año"]
-     [:th "Fecha de Reparacion"]
-     [:th "Descripción de Reparacion"]
-     [:th "Observaciones"]]
+     [:th {:scope "col"} "Sucursal"]
+     [:th {:scope "col"} "Chofer"]
+     [:th {:scope "col"} "Vehiculo"]
+     [:th {:scope "col"} "Numero de Serie"]
+     [:th {:scope "col"} "Modelo"]
+     [:th {:scope "col"} "Modelo Año"]
+     [:th {:scope "col"} "Fecha de Reparacion"]
+     [:th {:scope "col"} "Descripción de Reparacion"]
+     [:th {:scope "col"} "Observaciones"]]
     [:tbody
      (build-bitacora-table-body)]]])
 ;; End bitacoras table
@@ -85,19 +85,19 @@
   (map build-inv_vehiculos-row (inv_vehiculos)))
 
 (defn build-inv_vehiculos-table []
-  [:table.table.table-bordered.table-hover
+  [:table.table.caption-top.table-bordered.table-hover
    [:caption "Inventario de Vehiculos"]
-   [:thead.thead-dark
+   [:thead.thead-light
     [:tr
-     [:th "Imagen"]
-     [:th "Sucursal"]
-     [:th "Chofer"]
-     [:th "Fecha"]
-     [:th "Vehiculo"]
-     [:th "Numero de Serie"]
-     [:th "Modelo"]
-     [:th "Modelo Año"]
-     [:th "Lecura de Odometro"]]
+     [:th {:scope "col"} "Imagen"]
+     [:th {:scope "col"} "Sucursal"]
+     [:th {:scope "col"} "Chofer"]
+     [:th {:scope "col"} "Fecha"]
+     [:th {:scope "col"} "Vehiculo"]
+     [:th {:scope "col"} "Numero de Serie"]
+     [:th {:scope "col"} "Modelo"]
+     [:th {:scope "col"} "Modelo Año"]
+     [:th {:scope "col"} "Lecura de Odometro"]]
     [:tbody
      (build-inv_vehiculos-table-body)]]])
 ;; End ivn_vehiculos table
