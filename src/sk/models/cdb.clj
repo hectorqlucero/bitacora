@@ -18,7 +18,8 @@
   phone varchar(45) DEFAULT NULL,fax varchar(45) DEFAULT NULL,
   email varchar(100) DEFAULT NULL,
   level char(1) DEFAULT NULL COMMENT 'A=Administrator,U=User,S=System',
-  active char(1) DEFAULT NULL COMMENT 'T=Active,F=Not active'
+  active char(1) DEFAULT NULL COMMENT 'T=Active,F=Not active',
+  imagen varchar(200) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 
 (def users-rows
@@ -129,35 +130,35 @@
     :num_licencia 1234567123
     :sucursal 6}
    {:id 4
-    :chofer "B"
+    :chofer "marco"
     :tipo_licencia "B"
-    :num_licencia 12345
-    :sucursal 6}
+    :num_licencia "yyuuu"
+    :sucursal 7}
    {:id 5
     :chofer "Ramon"
     :tipo_licencia "A"
-    :num_licencia 67676767
+    :num_licencia 67676767676767
     :sucursal 1}
    {:id 6
     :chofer "Ricardo"
     :tipo_licencia "E"
     :num_licencia 55655656
-    :sucursal 3}
+    :sucursal 1}
    {:id 7
     :chofer "Ricardo Vega"
     :tipo_licencia "A"
-    :num_licencia 123
-    :sucursal 2}
+    :num_licencia "BC123"
+    :sucursal 1}
    {:id 8
     :chofer "Ines"
     :tipo_licencia "A"
-    :num_licencia 12121
-    :sucursal 4}
+    :num_licencia "12121RDRRTTRTRTRTRT"
+    :sucursal 6}
    {:id 9
     :chofer "fffff"
     :tipo_licencia "E"
-    :num_licencia 23434
-    :sucursal 3}])
+    :num_licencia "ffff"
+    :sucursal 10}])
 ;; End choferes table
 
 ;; Start estado table
@@ -349,15 +350,15 @@
 (def sucursales-rows
   [{:id 1
     :sucursal "CALLE 11"}
-   {:id 2
-    :sucursal "VILLAS DEL REY"}
-   {:id 3
-    :sucursal "SANTA BARBARA"}
    {:id 4
-    :sucursal "Michoacan"}
-   {:id 5
-    :sucursal "Valle de Puebla"}
+    :sucursal "VILLAS DEL REY"}
    {:id 6
+    :sucursal "SANTA BARBARA"}
+   {:id 7
+    :sucursal "Michoacan"}
+   {:id 9
+    :sucursal "Valle de Puebla"}
+   {:id 10
     :sucursal "Palaco"}])
 ;; ENd sucursales table
 
@@ -496,4 +497,8 @@
   )
 
 (defn migrate []
-  "Migrate by the seat of my pants")
+  "Migrate by the seat of my pants"
+  (Query! db "DROP table IF EXISTS users")
+  (Query! db users-sql)
+  (Query! db "LOCK TABLES users WRITE;")
+  (Insert-multi db :users users-rows))

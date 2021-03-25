@@ -46,6 +46,57 @@
   (Query db [get-nserie-sql]))
 ;; End get-nserie
 
+;; Start get-serie
+(def get-serie-sql
+  "SELECT
+  CONCAT(num_serie,' -  ',vehiculo) as num_serie
+  FROM vehiculos
+  WHERE num_serie = ?")
+
+(defn get-serie
+  "Regresa la serie concatenada al vehiculo"
+  [serie]
+  (:num_serie (first (Query db [get-serie-sql serie]))))
+;; End get-serie
+
+;; Start get-sucursales
+(def get-sucursales-sql
+  "SELECT
+  id AS value,
+  sucursal AS text
+  FROM sucursales
+  ORDER BY sucursal")
+
+(defn get-sucursales
+  "Regresa todas las sucursales"
+  []
+  (Query db [get-sucursales-sql]))
+;; End get-sucursales
+
+(defn get-sucursal
+  "Regresa una sucursal dependiendo de la llave"
+  [id]
+  (:sucursal (first (Query db ["SELECT sucursal FROM sucursales where id = ?" id]))))
+
+;; Start get-choferes
+(def get-choferes-sql
+  "SELECT
+  id AS value,
+  chofer AS text
+  FROM choferes
+  ORDER BY chofer")
+
+(defn get-choferes
+  "Regresa todos los choferes"
+  []
+  (Query db [get-choferes-sql]))
+;; End get-choferes
+
+(defn get-chofer
+  "Regresa un chofer dependiendo de la llave"
+  [id]
+  (:chofer (first (Query db ["SELECT chofer FROM choferes WHERE id = ?" id]))))
+
 (defn months
   "Returns months name ex: (months)"
   []

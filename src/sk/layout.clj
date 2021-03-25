@@ -5,7 +5,12 @@
 
 (defn build-admin []
   (list
-    [:a.dropdown-item {:href "/admin/users"} "Usuarios"]))
+    [:a.dropdown-item {:href "/admin/users"} "Usuarios"]
+    [:a.dropdown-item {:href "/sucursales"} "Sucursales"]
+    [:a.dropdown-item {:href "/vehiculos"} "Vehiculos"]
+    [:a.dropdown-item {:href "/choferes"} "Choferes"]
+    [:a.dropdown-item {:href "/inventario"} "Inventario de Vehiculos"]
+    [:a.dropdown-item {:href "/bitacora"} "Bitacora"]))
 
 (defn menus-private []
   (list
@@ -17,12 +22,7 @@
      [:span.navbar-toggler-icon]]
     [:div#collapsibleNavbar.collapse.navbar-collapse
      [:ul.navbar-nav
-      [:li.nav-item [:a.nav-link {:href "/bitacora"} "Bitacora"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Inventario de Vehiculos"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Choferes"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Vehiculos"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Sucursales"]]
-      [:li.nav-item [:a.nav-link {:href "#"} "Pizarra"]]
+      [:li.nav-item [:a.nav-link {:href "/pizarra"} "Pizarra"]]
       [:li.nav-item.dropdown
        [:a.nav-link.dropdown-toggle {:href "#"
                                      :id "navdrop"

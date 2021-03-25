@@ -865,7 +865,7 @@
   "Builds radio button fields options has list of build-field options"
   [label options]
   [:div.form-group.col-10
-   [:label [:span label]]
+   [:label [:span {:style "font-weight:bold;"} label]]
    (for [option options]
      [:div {:style "margin-bottom:5px;"} [:input option]])])
 

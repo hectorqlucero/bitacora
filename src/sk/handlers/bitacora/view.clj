@@ -53,10 +53,10 @@
       title
       "/bitacora"
       (list
-        [:th {:data-options "field:'num_serie',sortable:true,fixed:false"} "Numero de Serie"]
-        [:th {:data-options "field:'fecha_reparacion',sortable:true,fixed:false"} "Fecha de reparacion"]
-        [:th {:data-options "field:'desc_reparacion',sortable:true,fixed:false"} "Descripción de Reparacion"]
-        [:th {:data-options "field:'observaciones',sortable:true,fixed:false"} "Observaciones"]))
+        [:th {:data-options "field:'num_serie',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
+        [:th {:data-options "field:'fecha_reparacion_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Fecha de reparacion"]]
+        [:th {:data-options "field:'desc_reparacion',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Descripción de Reparacion"]]
+        [:th {:data-options "field:'observaciones',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Observaciones"]]))
     (build-toolbar)
     (build-dialog title dialog-fields)))
 
