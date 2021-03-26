@@ -41,68 +41,6 @@
     :active "T"}])
 ;; End users table
 
-;; Start vehiculos table
-(def vehiculos-sql
-  "CREATE TABLE vehiculos (
-  id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  vehiculo varchar(30) DEFAULT NULL,
-  num_serie varchar(17) DEFAULT NULL,
-  modelo varchar(45) DEFAULT NULL,
-  modelo_ano varchar(10) DEFAULT NULL,
-  chofer_asignado int(10) NOT NULL,
-  sucursal int(10) NOT NULL
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
-
-(def vehiculos-rows
-  [{:id 1
-    :vehiculo "NUEVO"
-    :num_serie "LC6PCJK63H0003222"
-    :modelo "EN1252017"
-    :modelo_ano "2018"
-    :chofer_asignado 3
-    :sucursal 9}
-   {:id 2
-    :vehiculo "PESCASOFT PICK UP"
-    :num_serie "28788SASHA123"
-    :modelo "FORF"
-    :modelo_ano "2019"
-    :chofer_asignado 8
-    :sucursal 9}
-   {:id 3
-    :vehiculo "moto kawasaqui 123"
-    :num_serie "kwsk123"
-    :modelo "123"
-    :chofer_asignado 4
-    :sucursal 9}
-   {:id 4
-    :vehiculo "trtrtr"
-    :num_serie "rtrtr"
-    :modelo "trtrt"
-    :chofer_asignado 5
-    :sucursal 1}
-   {:id 5
-    :vehiculo "popo"
-    :num_serie "654"
-    :modelo "ka"
-    :modelo_ano "2020"
-    :chofer_asignado 6
-    :sucursal 1}
-   {:id 6
-    :vehiculo "45454"
-    :num_serie "454545"
-    :modelo "54"
-    :modelo_ano "2018"
-    :chofer_asignado 2
-    :sucursal 9}
-   {:id 7
-    :vehiculo "3334111"
-    :num_serie "11111"
-    :modelo "1111"
-    :modelo_ano "2017"
-    :chofer_asignado 6
-    :sucursal 1}])
-;; End vehiculos table
-
 ;; Start choferes table
 (def choferes-sql
   "CREATE TABLE choferes (
@@ -161,6 +99,69 @@
     :sucursal 10}])
 ;; End choferes table
 
+;; Start vehiculos table
+(def vehiculos-sql
+  "CREATE TABLE vehiculos (
+  id int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  vehiculo varchar(30) DEFAULT NULL,
+  num_serie varchar(17) DEFAULT NULL,
+  modelo varchar(45) DEFAULT NULL,
+  modelo_ano varchar(10) DEFAULT NULL,
+  chofer_asignado int(10) NOT NULL,
+  sucursal int(10) NOT NULL,
+  UNIQUE INDEX num_serie (num_serie)
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
+
+(def vehiculos-rows
+  [{:id 1
+    :vehiculo "NUEVO"
+    :num_serie "LC6PCJK63H0003222"
+    :modelo "EN1252017"
+    :modelo_ano "2018"
+    :chofer_asignado 3
+    :sucursal 9}
+   {:id 2
+    :vehiculo "PESCASOFT PICK UP"
+    :num_serie "28788SASHA123"
+    :modelo "FORF"
+    :modelo_ano "2019"
+    :chofer_asignado 8
+    :sucursal 9}
+   {:id 3
+    :vehiculo "moto kawasaqui 123"
+    :num_serie "kwsk123"
+    :modelo "123"
+    :chofer_asignado 4
+    :sucursal 9}
+   {:id 4
+    :vehiculo "trtrtr"
+    :num_serie "rtrtr"
+    :modelo "trtrt"
+    :chofer_asignado 5
+    :sucursal 1}
+   {:id 5
+    :vehiculo "popo"
+    :num_serie "654"
+    :modelo "ka"
+    :modelo_ano "2020"
+    :chofer_asignado 6
+    :sucursal 1}
+   {:id 6
+    :vehiculo "45454"
+    :num_serie "454545"
+    :modelo "54"
+    :modelo_ano "2018"
+    :chofer_asignado 2
+    :sucursal 9}
+   {:id 7
+    :vehiculo "3334111"
+    :num_serie "11111"
+    :modelo "1111"
+    :modelo_ano "2017"
+    :chofer_asignado 6
+    :sucursal 1}])
+;; End vehiculos table
+
 ;; Start estado table
 (def estado-sql
   "CREATE TABLE estado (
@@ -184,158 +185,151 @@
   "
   CREATE TABLE `inv_vehiculos` (
   `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `num_serie` varchar(17) NOT NULL,
+  `vehiculo_id` int(10) NOT NULL,
   `lec_odometro` int(45) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `retrovisores` varchar(45) DEFAULT NULL,
-  `llanta_D` int(10) DEFAULT NULL,
-  `LLANTA_T` int(10) DEFAULT NULL,
+  `llanta_d` int(10) DEFAULT NULL,
+  `llanta_t` int(10) DEFAULT NULL,
   `direccionales` int(10) DEFAULT NULL,
   `foco_del` int(10) DEFAULT NULL,
   `cadena` int(10) DEFAULT NULL,
   `topesmanubliod` int(10) DEFAULT NULL,
-  `topesmanublioI` int(10) DEFAULT NULL,
+  `topesmanublioi` int(10) DEFAULT NULL,
   `stop` int(10) DEFAULT NULL,
   `luztrasera` int(10) DEFAULT NULL,
-  `luzmuertaD` int(10) DEFAULT NULL,
-  `luzmuertaT` int(10) DEFAULT NULL,
-  `ResorteStand` int(10) DEFAULT NULL,
-  `ResorteCaballete` int(10) DEFAULT NULL,
-  `bujesRinT` int(10) DEFAULT NULL,
-  `Bujias` int(10) DEFAULT NULL,
-  `CableCluth` int(10) DEFAULT NULL,
-  `CableAcel` int(10) DEFAULT NULL,
-  `CableVel` int(10) DEFAULT NULL,
-  `TaponAceite` int(10) DEFAULT NULL,
-  `MicasDirD` int(10) DEFAULT NULL,
-  `MicasDirT` int(10) DEFAULT NULL,
+  `luzmuertad` int(10) DEFAULT NULL,
+  `luzmuertat` int(10) DEFAULT NULL,
+  `resortestand` int(10) DEFAULT NULL,
+  `resortecaballete` int(10) DEFAULT NULL,
+  `bujesrint` int(10) DEFAULT NULL,
+  `bujias` int(10) DEFAULT NULL,
+  `cablecluth` int(10) DEFAULT NULL,
+  `cableacel` int(10) DEFAULT NULL,
+  `cablevel` int(10) DEFAULT NULL,
+  `taponaceite` int(10) DEFAULT NULL,
+  `micasdird` int(10) DEFAULT NULL,
+  `micasdirt` int(10) DEFAULT NULL,
   `claxon` int(10) DEFAULT NULL,
-  `OrquillaDel` int(1) DEFAULT NULL,
-  `Retenes` int(10) DEFAULT NULL,
-  `NivelAceite` int(10) DEFAULT NULL,
-  `AjustadoresCad` int(10) DEFAULT NULL,
-  `Guardafango` int(10) DEFAULT NULL,
-  `TapaderaLados` int(10) DEFAULT NULL,
-  `TapaderaFiltro` int(10) DEFAULT NULL,
-  `TapaderaPila` int(10) DEFAULT NULL,
-  `BalatasDel` int(10) DEFAULT NULL,
-  `BalatasTra` int(10) DEFAULT NULL,
-  `Pila` int(10) DEFAULT NULL,
-  `SelectorCambios` int(10) DEFAULT NULL,
-  `RelayDirecciones` int(10) DEFAULT NULL,
-  `Guardacadenas` int(10) DEFAULT NULL,
-  `TopeAsiento` int(10) DEFAULT NULL,
-  `HuleReposapieIzq` int(10) DEFAULT NULL,
-  `HuleReposapieDer` int(10) DEFAULT NULL,
-  `ReposamanoFrenoDel` int(10) DEFAULT NULL,
-  `Cluth` int(10) DEFAULT NULL,
-  `LiquidoFreno` int(10) DEFAULT NULL,
-  `TolbaMofle` int(10) DEFAULT NULL,
-  `ReposaPieCop_Izq` int(10) DEFAULT NULL,
-  `ReposaPieCop_Der` int(10) DEFAULT NULL,
-  `Herramienta` int(10) DEFAULT NULL,
-  `SwitchEncendido` int(10) DEFAULT NULL,
-  `SwitchLuces` int(10) DEFAULT NULL,
-  `SwitchDireccionales` int(10) DEFAULT NULL,
-  `EsteticaTanqueGas` int(10) DEFAULT NULL,
-  `CondicionesMarcadores` int(10) DEFAULT NULL,
-  `BujesOrqTra` int(10) DEFAULT NULL,
-  `chofer` int(10) NOT NULL,
+  `orquilladel` int(1) DEFAULT NULL,
+  `retenes` int(10) DEFAULT NULL,
+  `nivelaceite` int(10) DEFAULT NULL,
+  `ajustadorescad` int(10) DEFAULT NULL,
+  `guardafango` int(10) DEFAULT NULL,
+  `tapaderalados` int(10) DEFAULT NULL,
+  `tapaderafiltro` int(10) DEFAULT NULL,
+  `tapaderapila` int(10) DEFAULT NULL,
+  `balatasdel` int(10) DEFAULT NULL,
+  `balatastra` int(10) DEFAULT NULL,
+  `pila` int(10) DEFAULT NULL,
+  `selectorcambios` int(10) DEFAULT NULL,
+  `relaydirecciones` int(10) DEFAULT NULL,
+  `guardacadenas` int(10) DEFAULT NULL,
+  `topeasiento` int(10) DEFAULT NULL,
+  `hulereposapieizq` int(10) DEFAULT NULL,
+  `hulereposapieder` int(10) DEFAULT NULL,
+  `reposamanofrenodel` int(10) DEFAULT NULL,
+  `cluth` int(10) DEFAULT NULL,
+  `liquidofreno` int(10) DEFAULT NULL,
+  `tolbamofle` int(10) DEFAULT NULL,
+  `reposapiecop_izq` int(10) DEFAULT NULL,
+  `reposapiecop_der` int(10) DEFAULT NULL,
+  `herramienta` int(10) DEFAULT NULL,
+  `switchencendido` int(10) DEFAULT NULL,
+  `switchluces` int(10) DEFAULT NULL,
+  `switchdireccionales` int(10) DEFAULT NULL,
+  `esteticatanquegas` int(10) DEFAULT NULL,
+  `condicionesmarcadores` int(10) DEFAULT NULL,
+  `bujesorqtra` int(10) DEFAULT NULL,
   `imagen` varchar(100) DEFAULT NULL
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
 (def inv_vehiculos-rows
   [{:id 1
-    :num_serie "28788SASHA123"
+    :vehiculo_id "1"
     :lec_odometro 45
     :fecha "2021-02-09"
     :retrovisores "1"
-    :llanta_D 1
-    :LLANTA_T 1
+    :llanta_d 1
+    :llanta_t 1
     :direccionales 1
     :foco_del 1
-    :topesmanublioI 1
+    :topesmanublioi 1
     :stop 1
-    :CableAcel 1
-    :CableVel 1
-    :TaponAceite 1
-    :MicasDirD 1
-    :MicasDirT 1
+    :cableacel 1
+    :cablevel 1
+    :taponaceite 1
+    :micasdird 1
+    :micasdirt 1
     :claxon 1
-    :OrquillaDel 1
-    :Retenes 1
-    :NivelAceite 4
-    :AjustadoresCad 2
-    :Guardafango 2
-    :TapaderaLados 2
-    :TapaderaFiltro 2
-    :TapaderaPila 2
-    :BalatasDel 2
-    :BalatasTra 2
-    :Pila 2
-    :SelectorCambios 2
-    :RelayDirecciones 2
-    :Guardacadenas 2
-    :TopeAsiento 2
-    :HuleReposapieDer 1
-    :ReposamanoFrenoDel 1
-    :Cluth 1
-    :LiquidoFreno 2
-    :TolbaMofle 2
-    :ReposaPieCop_Izq 2
-    :ReposaPieCop_Der 2
-    :Herramienta 2
-    :SwitchEncendido 2
-    :SwitchLuces 2
-    :SwitchDireccionales 2
-    :EsteticaTanqueGas 2
-    :CondicionesMarcadores 2
-    :BujesOrqTra 2
-    :chofer 2}
+    :orquilladel 1
+    :retenes 1
+    :nivelaceite 4
+    :ajustadorescad 2
+    :guardafango 2
+    :tapaderalados 2
+    :tapaderafiltro 2
+    :tapaderapila 2
+    :balatasdel 2
+    :balatastra 2
+    :pila 2
+    :selectorcambios 2
+    :relaydirecciones 2
+    :guardacadenas 2
+    :topeasiento 2
+    :hulereposapieder 1
+    :reposamanofrenodel 1
+    :cluth 1
+    :liquidofreno 2
+    :tolbamofle 2
+    :reposapiecop_izq 2
+    :reposapiecop_der 2
+    :herramienta 2
+    :switchencendido 2
+    :switchluces 2
+    :switchdireccionales 2
+    :esteticatanqueGas 2
+    :condicionesmarcadores 2
+    :bujesorqtra 2}
    {:id 2
-    :num_serie "28788SASHA123"
+    :vehiculo_id "2"
     :lec_odometro 23
-    :fecha "2021-02-10"
-    :chofer 1}
+    :fecha "2021-02-10"}
    {:id 3
-    :num_serie "28788SASHA123"
+    :vehiculo_id "3"
     :lec_odometro 3434
     :fecha "2021-02-16"
     :retrovisores 2
-    :llanta_D 2
-    :LLANTA_T 2
+    :llanta_d 2
+    :llanta_t 2
     :direccionales 2
     :foco_del 2
     :cadena 2
     :topesmanubliod 2
-    :topesmanublioI 2
-    :stop 2
-    :chofer 1}
+    :topesmanublioi 2
+    :stop 2}
    {:id 4
-    :num_serie "kwsk123"
+    :vehiculo_id "4"
     :lec_odometro 333
     :fecha "2021-02-14"
     :retrovisores 2
-    :llanta_D 2
+    :llanta_d 2
     :stop 2
-    :CondicionesMarcadores 1
-    :BujesOrqTra 1
-    :chofer 1}
+    :condicionesmarcadores 1
+    :bujesorqtra 1}
    {:id 5
-    :num_serie "LC6PCJK63H0003222"
+    :vehiculo_id "5"
     :lec_odometro 123434
-    :SwitchLuces 1
-    :CondicionesMarcadores 4
-    :chofer 1}
+    :switchluces 1
+    :condicionesmarcadores 4}
    {:id 6
-    :num_serie "LC6PCJK63H0003222"
+    :vehiculo_id "6"
     :lec_odometro 34
     :fecha "2021-02-09"
-    :llanta_D 4
-    :LLANTA_T 4
-    :cadena 4
-    :chofer 7}])
+    :llanta_d 4
+    :llanta_t 4
+    :cadena 4}])
 ;; End inv_vehiculos table
 
 ;; Start sucursales table
@@ -498,7 +492,7 @@
 
 (defn migrate []
   "Migrate by the seat of my pants"
-  (Query! db "DROP table IF EXISTS users")
-  (Query! db users-sql)
-  (Query! db "LOCK TABLES users WRITE;")
-  (Insert-multi db :users users-rows))
+  (Query! db "DROP table IF EXISTS inv_vehiculos")
+  (Query! db inv_vehiculos-sql)
+  (Query! db "LOCK TABLES inv_vehiculos  WRITE;")
+  (Insert-multi db :inv_vehiculos inv_vehiculos-rows))

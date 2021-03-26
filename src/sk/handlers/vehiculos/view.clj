@@ -77,7 +77,7 @@
         [:th {:data-options "field:'num_serie',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
         [:th {:data-options "field:'modelo',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Modelo"]]
         [:th {:data-options "field:'modelo_ano',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Modelo Año"]]
-        [:th {:data-options "field:'chofer_asignado',sortable:true,fixed:false"
+        [:th {:data-options "field:'id',sortable:true,fixed:false"
               :formatter "get_chofer"} [:span {:style "font-weight:bold;"} "Chofer Asignado"]]))
     (build-toolbar)
     (build-dialog title dialog-fields)))
@@ -94,7 +94,7 @@
      }
 
      function get_chofer(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/chofer/'+val, async: false}).responseText;
+      var valor = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+val, async: false}).responseText;
       return valor
      }
      ")]))

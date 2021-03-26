@@ -1,5 +1,6 @@
 (ns sk.handlers.inventario.handler
   (:require [sk.models.crud :refer [build-form-row
+                                    build-grid-columns
                                     build-form-save
                                     build-form-delete]]
             [sk.models.grid :refer [build-grid]]
@@ -8,7 +9,6 @@
             [sk.layout :refer [application]]
             [sk.handlers.inventario.view :refer [inventario-view
                                                inventario-scripts]]))
-
 (defn inventario
   [_]
   (try
@@ -19,13 +19,19 @@
       (application title ok js content))
     (catch Exception e (.getMessage e))))
 
+;; Start inventario grid
+(def grid-aliases
+  (conj (build-grid-columns "inv_vehiculos") "vehiculo_id as vehiculo_id_extra"))
+
 (defn inventario-grid
   [{params :params}]
   (try
     (let [table "inv_vehiculos"
-          args {:sort-extra "chofer"}]
+          args {:sort-extra "fecha desc"
+                :aliases grid-aliases}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
+;; End inventario grid
 
 (defn inventario-form
   [id]

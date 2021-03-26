@@ -12,12 +12,14 @@
   (GET "/table_ref/months" [] (generate-string (table_ref/months)))
   (GET "/table_ref/years/:pyears/:nyears" [pyears nyears] (generate-string (table_ref/years pyears nyears)))
   (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
-  (GET "/table_ref/nserie" [] (generate-string (table_ref/get-nserie)))
-  (GET "/table_ref/serie/:serie" [serie] (table_ref/get-serie serie))
+  (GET "/table_ref/vehiculos" [] (generate-string (table_ref/get-vehiculos)))
+  (GET "/table_ref/nseries" [] (generate-string (table_ref/get-nseries)))
+  (GET "/table_ref/nserie/:id" [id] (generate-string (table_ref/get-nserie id)))
+  (GET "/table_ref/v_serie/:vehiculo_id" [vehiculo_id] (table_ref/get-v_serie vehiculo_id))
   (GET "/table_ref/sucursales" [] (generate-string (table_ref/get-sucursales)))
   (GET "/table_ref/sucursal/:id" [id] (table_ref/get-sucursal id))
   (GET "/table_ref/choferes" [] (generate-string (table_ref/get-choferes)))
-  (GET "/table_ref/chofer/:id" [id] (table_ref/get-chofer id))
+  (GET "/table_ref/v_chofer/:vehiculo_id" [vehiculo_id] (table_ref/get-v_chofer vehiculo_id))
   ;; End table_ref
 
   ;; Start home

@@ -63,7 +63,7 @@
   i.lec_odometro,
   DATE_FORMAT(i.fecha,'%m/%d/%Y') as fecha
   FROM inv_vehiculos i
-  LEFT JOIN vehiculos v on i.num_serie = v.num_serie
+  LEFT JOIN vehiculos v on i.vehiculo_id = v.id
   LEFT JOIN choferes c on v.chofer_asignado = c.id
   LEFT JOIN sucursales s on v.sucursal = s.id
   ORDER BY v.sucursal,i.fecha")

@@ -33,26 +33,45 @@
     [:input {:type "hidden" :id "id" :name "id"}]
     (build-image-field)
     (build-field
+      {:id "vehiculo_id"
+       :name "vehiculo_id"
+       :class "easyui-combobox"
+       :prompt "Por favor seleccione"
+       :data-options "label:'Vehiculo:',
+                     labelPosition:'top',
+                     required:true,
+                     width:'100%',
+                     url:'/table_ref/vehiculos',
+                     method:'GET',
+                     onSelect: function(rec) {
+                      var valor_serie = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+rec.value, async: false}).responseText;
+                      var valor_chofer = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+rec.value, async: false}).responseText;
+                      $('#num_serie').combobox('setValue',valor_serie);
+                      $('#chofer').combobox('setValue',valor_chofer);
+                     }"})
+    (build-field
       {:id "chofer"
        :name "chofer"
        :class "easyui-combobox"
-       :prompt "Por favor seleccione"
        :data-options "label:'Chofer:',
                      labelPosition:'top',
-                     url:'/table_ref/choferes',
                      method:'GET',
-                     required:true,
+                     valueField:'value',
+                     textField:'text',
+                     limitToList:true,
+                     disabled:true,
                      width:'100%'"})
     (build-field
       {:id "num_serie"
        :name "num_serie"
        :class "easyui-combobox"
-       :prompt "Por favor seleccione"
-       :data-options "label:'Numero de Serie:',
+       :data-options "method:'GET',
+                     valueField:'value',
+                     textField:'text',
+                     limitToList:true,
+                     label:'Numero de Serie:',
                      labelPosition:'top',
-                     url:'/table_ref/nserie',
-                     method:'GET',
-                     required:true,
+                     disabled:true,
                      width:'100%'"})
     (build-field
       {:id "lec_odometro"
@@ -71,58 +90,58 @@
        :prompt "mm/dd/yyy"
        :data-options "label:'Fecha:',labelPosition:'top',required:true,width:'100%'"})
     (build-radio-buttons "Retrovisores:" (build-radio-button "retrovisores"))
-    (build-radio-buttons "Llanta Delantera:" (build-radio-button "llanta_D"))
-    (build-radio-buttons "Llanta Trasera:" (build-radio-button "llanta_T"))
+    (build-radio-buttons "Llanta Delantera:" (build-radio-button "llanta_d"))
+    (build-radio-buttons "Llanta Trasera:" (build-radio-button "llanta_t"))
     (build-radio-buttons "Direccionales:" (build-radio-button "direccionales"))
     (build-radio-buttons "Foco Delantero:" (build-radio-button "foco_del"))
     (build-radio-buttons "Cadena:" (build-radio-button "cadena"))
     (build-radio-buttons "Topes manublio derecho" (build-radio-button "topesmanubliod"))
-    (build-radio-buttons "Topes manublio izquierdo" (build-radio-button "topesmanublioI"))
+    (build-radio-buttons "Topes manublio izquierdo" (build-radio-button "topesmanublioi"))
     (build-radio-buttons "Stop" (build-radio-button "stop"))
     (build-radio-buttons "Luz trasera" (build-radio-button "luztrasera"))
-    (build-radio-buttons "Luz muerta Delantera" (build-radio-button "luzmuertaD"))
-    (build-radio-buttons "Luz muerta Trasera" (build-radio-button "luzmuertaT"))
-    (build-radio-buttons "Resorte Stand" (build-radio-button "ResorteStand"))
-    (build-radio-buttons "Resorte Caballete" (build-radio-button "ResorteCaballete"))
-    (build-radio-buttons "Bujes Rin Trasero" (build-radio-button "bujesRinT"))
-    (build-radio-buttons "Bujias" (build-radio-button "Bujias"))
-    (build-radio-buttons "Cable Cluth" (build-radio-button "CableCluth"))
-    (build-radio-buttons "Cable Acelerador" (build-radio-button "CableAcel"))
-    (build-radio-buttons "Cable Velocidades" (build-radio-button "CableVel"))
-    (build-radio-buttons "Tapon Aceite" (build-radio-button "TaponAceite"))
-    (build-radio-buttons "Micas Dirección Delantera" (build-radio-button "MicasDirD"))
-    (build-radio-buttons "Micas Dirección Trasera" (build-radio-button "MicasDirT"))
+    (build-radio-buttons "Luz muerta Delantera" (build-radio-button "luzmuertad"))
+    (build-radio-buttons "Luz muerta Trasera" (build-radio-button "luzmuertat"))
+    (build-radio-buttons "Resorte Stand" (build-radio-button "resortestand"))
+    (build-radio-buttons "Resorte Caballete" (build-radio-button "resortecaballete"))
+    (build-radio-buttons "Bujes Rin Trasero" (build-radio-button "bujesrint"))
+    (build-radio-buttons "Bujias" (build-radio-button "bujias"))
+    (build-radio-buttons "Cable Cluth" (build-radio-button "cablecluth"))
+    (build-radio-buttons "Cable Acelerador" (build-radio-button "cableacel"))
+    (build-radio-buttons "Cable Velocidades" (build-radio-button "cablevel"))
+    (build-radio-buttons "Tapon Aceite" (build-radio-button "taponaceite"))
+    (build-radio-buttons "Micas Dirección Delantera" (build-radio-button "micasdird"))
+    (build-radio-buttons "Micas Dirección Trasera" (build-radio-button "micasdirt"))
     (build-radio-buttons "Claxon" (build-radio-button "claxon"))
-    (build-radio-buttons "Orquilla Delantera" (build-radio-button "OrquillaDel"))
-    (build-radio-buttons "Retenes" (build-radio-button "Retenes"))
-    (build-radio-buttons "Nivel Aceite" (build-radio-button "NivelAceite"))
-    (build-radio-buttons "Ajustadores Cadena" (build-radio-button "AjustadoresCad"))
-    (build-radio-buttons "Guardafango" (build-radio-button "Guardafango"))
-    (build-radio-buttons "Tapadera Lados" (build-radio-button "TapaderaLados"))
-    (build-radio-buttons "Tapadera Filtro" (build-radio-button "TapaderaFiltro"))
-    (build-radio-buttons "Tapadera Pila" (build-radio-button "TapaderaPila"))
-    (build-radio-buttons "Balatas Delanteras" (build-radio-button "BalatasDel"))
-    (build-radio-buttons "Balatas Traseras" (build-radio-button "BalatasTra"))
-    (build-radio-buttons "Pila" (build-radio-button "Pila"))
-    (build-radio-buttons "Selector Cambios" (build-radio-button "SelectorCambios"))
-    (build-radio-buttons "Relay Direcciones" (build-radio-button "RelayDirecciones"))
-    (build-radio-buttons "Guardacadenas" (build-radio-button "Guardacadenas"))
-    (build-radio-buttons "Tope Asiento" (build-radio-button "TopeAsiento"))
-    (build-radio-buttons "Hule Reposapie Izquierdo" (build-radio-button "HuleReposapieIzq"))
-    (build-radio-buttons "Hule Reposapie Derecho" (build-radio-button "HuleReposapieDer"))
-    (build-radio-buttons "Reposamano Freno Delantero" (build-radio-button "ReposamanoFrenoDel"))
-    (build-radio-buttons "Cluth" (build-radio-button "Cluth"))
-    (build-radio-buttons "Liquido Freno" (build-radio-button "LiquidoFreno"))
-    (build-radio-buttons "Tolba Mofle" (build-radio-button "TolbaMofle"))
-    (build-radio-buttons "ReposaPieCop Izquierdo" (build-radio-button "ReposaPieCop_Izq"))
-    (build-radio-buttons "ReposaPieCop Derecho" (build-radio-button "ReposaPieCop_Der"))
-    (build-radio-buttons "Herramienta" (build-radio-button  "Herramienta"))
-    (build-radio-buttons "Switch Encendido" (build-radio-button "SwitchEncendido"))
-    (build-radio-buttons "Switch Luces" (build-radio-button "SwitchLuces"))
-    (build-radio-buttons "Switch Direccionales" (build-radio-button "SwitchDireccionales"))
-    (build-radio-buttons "Estetica Tanque Gas" (build-radio-button "EsteticaTanqueGas"))
-    (build-radio-buttons "Condiciones Marcadores" (build-radio-button "CondicionesMarcadores"))
-    (build-radio-buttons "Bujes Orq Trasera" (build-radio-button "BujesOrqTra"))))
+    (build-radio-buttons "Orquilla Delantera" (build-radio-button "orquilladel"))
+    (build-radio-buttons "Retenes" (build-radio-button "retenes"))
+    (build-radio-buttons "Nivel Aceite" (build-radio-button "nivelaceite"))
+    (build-radio-buttons "Ajustadores Cadena" (build-radio-button "ajustadorescad"))
+    (build-radio-buttons "Guardafango" (build-radio-button "guardafango"))
+    (build-radio-buttons "Tapadera Lados" (build-radio-button "tapaderalados"))
+    (build-radio-buttons "Tapadera Filtro" (build-radio-button "tapaderafiltro"))
+    (build-radio-buttons "Tapadera Pila" (build-radio-button "tapaderapila"))
+    (build-radio-buttons "Balatas Delanteras" (build-radio-button "balatasdel"))
+    (build-radio-buttons "Balatas Traseras" (build-radio-button "balatastra"))
+    (build-radio-buttons "Pila" (build-radio-button "pila"))
+    (build-radio-buttons "Selector Cambios" (build-radio-button "selectorcambios"))
+    (build-radio-buttons "Relay Direcciones" (build-radio-button "relaydirecciones"))
+    (build-radio-buttons "Guardacadenas" (build-radio-button "guardacadenas"))
+    (build-radio-buttons "Tope Asiento" (build-radio-button "topeasiento"))
+    (build-radio-buttons "Hule Reposapie Izquierdo" (build-radio-button "hulereposapieizq"))
+    (build-radio-buttons "Hule Reposapie Derecho" (build-radio-button "hulereposapieder"))
+    (build-radio-buttons "Reposamano Freno Delantero" (build-radio-button "reposamanofrenodel"))
+    (build-radio-buttons "Cluth" (build-radio-button "cluth"))
+    (build-radio-buttons "Liquido Freno" (build-radio-button "liquidofreno"))
+    (build-radio-buttons "Tolba Mofle" (build-radio-button "tolbamofle"))
+    (build-radio-buttons "ReposaPieCop Izquierdo" (build-radio-button "reposapiecop_izq"))
+    (build-radio-buttons "ReposaPieCop Derecho" (build-radio-button "reposapiecop_der"))
+    (build-radio-buttons "Herramienta" (build-radio-button  "herramienta"))
+    (build-radio-buttons "Switch Encendido" (build-radio-button "switchencendido"))
+    (build-radio-buttons "Switch Luces" (build-radio-button "switchluces"))
+    (build-radio-buttons "Switch Direccionales" (build-radio-button "switchdireccionales"))
+    (build-radio-buttons "Estetica Tanque Gas" (build-radio-button "esteticatanquegas"))
+    (build-radio-buttons "Condiciones Marcadores" (build-radio-button "condicionesmarcadores"))
+    (build-radio-buttons "Bujes Orq Trasera" (build-radio-button "bujesorqtra"))))
 
 (defn build-th [label field]
   [:th {:data-options (str "field:'"field "',sortable:true,fixed:false")
@@ -136,11 +155,11 @@
       title
       "/inventario"
       (list
-        [:th {:data-options "field:'chofer',sortable:true,fixed:false"
+        [:th {:data-options "field:'vehiculo_id_extra',sortable:true,fixed:false"
               :formatter "get_chofer"} [:span {:style "font-weight:bold;"} "Chofer"]]
-        [:th {:data-options "field:'imagen',sortable:true,fixed:false,width:300"
+        [:th {:data-options "field:'imagen',sortable:true,fixed:false"
               :formatter "imagenShow"} [:span {:style "font-weight:bold;"} "Foto"]]
-        [:th {:data-options "field:'num_serie',sortable:true,fixed:false"
+        [:th {:data-options "field:'vehiculo_id',sortable:true,fixed:false"
               :formatter "get_serie"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
         [:th {:data-options "field:'lec_odometro',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Lectura Odometro"]]
         [:th {:data-options "field:'fecha_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Fecha"]]
@@ -207,12 +226,12 @@
   (str
     "
     function get_chofer(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/chofer/'+val, async: false}).responseText;
+      var valor = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+val, async: false}).responseText;
       return valor;
     }
 
     function get_serie(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/serie/'+val, async: false}).responseText;
+      var valor = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+val, async: false}).responseText;
       return valor;
     }
 

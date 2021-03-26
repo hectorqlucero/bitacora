@@ -19,6 +19,44 @@
   (Query db [get-users-sql]))
 ;; End get-users
 
+;; Start get-vehiculos
+(def get-vehiculos-sql
+  "SELECT
+  id AS value,
+  CONCAT('Vehiculo: ',vehiculo,' Modelo: ',modelo,' Serie: ',num_serie) as text
+  FROM vehiculos
+  ORDER BY modelo")
+
+(defn get-vehiculos
+  "Regrasa todos los vehiculos"
+  []
+  (let [vrows (Query db [get-vehiculos-sql])])
+  (Query db [get-vehiculos-sql]))
+;; End get-vehiculos
+
+;; Start get-unique-vehiculos
+(defn get-unique-vehiculos-sql
+  [filtro]
+  (str
+    "SELECT
+    id AS value,
+    CONCAT('Vehiculo: ',vehiculo,' Modelo: ',modelo,' Serie: ',num_serie) as text
+    FROM vehiculos
+    WHERE id IN(" filtro ")"))
+
+(defn get-unique-vehiculos
+  "Regresa solo los vehiculos unicos - se usa para la table de inv_vehiculos"
+  []
+  (let [vrows (Query db "SELECT id FROM vehiculos")
+        irows (Query db ["SELECT vehiculo_id FROM inv_vehiculos"])
+        vlist (set (flatten (map #(vals %) vrows)))
+        ilist (set (flatten (map #(vals %) irows)))
+        items (apply str (apply list (clojure.set/difference vlist ilist)))
+        filtro (apply str (interpose "," items))
+        rows (Query db (get-unique-vehiculos-sql filtro))]
+    rows))
+;; End get-unique-vehiculos
+
 ;; Start get-users-email
 (def get-users-email-sql
   "SELECT
@@ -33,30 +71,44 @@
 ;; End get-users-email
 
 ;; Start get-nserie
-(def get-nserie-sql
+(def get-nseries-sql
   "SELECT
   num_serie AS value,
   num_serie as text
   FROM vehiculos
   ORDER BY num_serie")
 
-(defn get-nserie
+(defn get-nseries
   "Regresa todos los numeros de serie de los vehiculos"
   []
-  (Query db [get-nserie-sql]))
+  (Query db [get-nseries-sql]))
+;; End get-nserie
+
+;; Start get-nserie
+(def get-nserie-sql
+  "SELECT
+  num_serie AS value,
+  num_serie AS text
+  FROM vehiculos
+  WHERE id = ?")
+
+(defn get-nserie
+  "Regresa un numero de serie - se pasa el vehiculo id"
+  [vehiculo_id]
+  (Query db [get-nserie-sql vehiculo_id]))
 ;; End get-nserie
 
 ;; Start get-serie
-(def get-serie-sql
+(def get-v_serie-sql
   "SELECT
   CONCAT(num_serie,' -  ',vehiculo) as num_serie
   FROM vehiculos
-  WHERE num_serie = ?")
+  WHERE id = ?")
 
-(defn get-serie
+(defn get-v_serie
   "Regresa la serie concatenada al vehiculo"
-  [serie]
-  (:num_serie (first (Query db [get-serie-sql serie]))))
+  [vehiculo-id]
+  (:num_serie (first (Query db [get-v_serie-sql vehiculo-id]))))
 ;; End get-serie
 
 ;; Start get-sucursales
@@ -92,10 +144,19 @@
   (Query db [get-choferes-sql]))
 ;; End get-choferes
 
-(defn get-chofer
-  "Regresa un chofer dependiendo de la llave"
-  [id]
-  (:chofer (first (Query db ["SELECT chofer FROM choferes WHERE id = ?" id]))))
+;; Start get-v_chofer
+(def get-v_chofer-sql
+  "SELECT
+  c.chofer
+  FROM vehiculos v
+  LEFT JOIN choferes c on c.id = v.chofer_asignado
+  WHERE v.id = ?")
+
+(defn get-v_chofer
+  "Regresa un chofer dependiendo de la llave del vehiculo"
+  [vehiculo-id]
+  (:chofer (first (Query db [get-v_chofer-sql vehiculo-id]))))
+;; End get-chofer
 
 (defn months
   "Returns months name ex: (months)"
