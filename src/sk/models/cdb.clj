@@ -241,7 +241,8 @@
   `esteticatanquegas` int(10) DEFAULT NULL,
   `condicionesmarcadores` int(10) DEFAULT NULL,
   `bujesorqtra` int(10) DEFAULT NULL,
-  `imagen` varchar(100) DEFAULT NULL
+  `imagen` varchar(100) DEFAULT NULL,
+  UNIQUE INDEX vehiculo_id (vehiculo_id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
