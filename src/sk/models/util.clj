@@ -772,7 +772,7 @@
       onLoadSuccess: function(){
         let d = new Date();
         let imgValue = $('#imagen').val();
-        let imgPath = " (:path config) ";
+        let imgPath = '" (:path config) "';
         let imgSrc = imgPath + imgValue + '?' + d.getTime();
         $('#image1').attr('src', imgSrc);
       }

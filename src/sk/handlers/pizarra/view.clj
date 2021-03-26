@@ -1,5 +1,6 @@
 (ns sk.handlers.pizarra.view
   (:require [sk.handlers.pizarra.sql :refer :all]
+            [sk.models.crud :refer [config]]
             [sk.models.crud :refer [Query db]]))
 
 ;; Start vehiculos table
@@ -68,7 +69,7 @@
 ;; Start inv_vehiculos table
 (defn build-inv_vehiculos-row [row]
   [:tr
-   [:td [:img {:src (str "/uploads/" (:imagen row))
+   [:td [:img {:src (str (:path config) (:imagen row))
                :width "90"
                :height "100"
                :onError "this.src='/images/placeholder_profile.png'"}]]

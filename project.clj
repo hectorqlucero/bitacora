@@ -1,5 +1,5 @@
 (defproject sk "0.1.0"
-  :description "Change me"
+  :description "Bitacora"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}
@@ -23,7 +23,7 @@
   :aot [sk.core]
   :plugins [[lein-ancient "0.6.10"]
             [lein-pprint "1.1.2"]]
-  :uberjar-name "sk.jar"
+  :uberjar-name "bitacora.jar"
   :target-path "target/%s"
   :ring {:handler sk.core/app
          :auto-reload? true
