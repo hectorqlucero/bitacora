@@ -14,6 +14,7 @@
   (GET "/table_ref/levels" [] (generate-string (table_ref/level-options)))
   (GET "/table_ref/vehiculos" [] (generate-string (table_ref/get-vehiculos)))
   (GET "/table_ref/unique_vehiculos" [] (generate-string (table_ref/get-unique-vehiculos)))
+  (GET "/table_ref/vehiculo_exists/:id" [id] (generate-string (table_ref/get-vehiculo_exists id)))
   (GET "/table_ref/nseries" [] (generate-string (table_ref/get-nseries)))
   (GET "/table_ref/nserie/:id" [id] (generate-string (table_ref/get-nserie id)))
   (GET "/table_ref/v_serie/:vehiculo_id" [vehiculo_id] (table_ref/get-v_serie vehiculo_id))

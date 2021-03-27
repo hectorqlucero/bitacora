@@ -19,6 +19,16 @@
   (Query db [get-users-sql]))
 ;; End get-users
 
+;; Start vehiculo_exists
+(defn get-vehiculo_exists
+  "Checa si el vehiculo existe en la table inv_vehiculos"
+  [id]
+  (let [row (first (Query db ["SELECT vehiculo_id FROM inv_vehiculos WHERE vehiculo_id = ?" id]))
+        item (:vehiculo_id row)
+        result (if (nil? item) "ok" "error")]
+    result))
+;; End vehiculo_exists
+
 ;; Start get-vehiculos
 (def get-vehiculos-sql
   "SELECT

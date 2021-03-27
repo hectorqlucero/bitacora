@@ -41,7 +41,7 @@
                      labelPosition:'top',
                      required:true,
                      width:'100%',
-                     url:'/table_ref/vehiculos',
+                     url:'/table_ref/unique_vehiculos',
                      method:'GET',
                      onSelect: function(rec) {
                       var valor_serie = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+rec.value, async: false}).responseText;
@@ -222,9 +222,22 @@
 (defn inventario-scripts []
   (list
   (include-js "/js/grid.js")
-  [:script (build-image-field-script)
+  [:script 
   (str
     "
+    function newItem() {
+      let the_url = '/table_ref/unique_vehiculos';
+      dg.datagrid('unselectAll');
+      $('#image1').attr('src','/images/placeholder_profile.png');
+      dlg.dialog('open').dialog('center').dialog('setTitle', 'Nuevo Record');
+      windowHeight = $(window).height() - ($(window).height() * 0.2);
+      dlg.dialog('resize', {height: windowHeight}).dialog('center');
+      fm.form('clear');
+      $('#vehiculo_id').combobox('readonly', false);
+      $('#vehiculo_id').combobox('reload', the_url);
+      url = window.location.href;
+    }
+
     function get_chofer(val, row, index) {
       var valor = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+val, async: false}).responseText;
       return valor;
@@ -270,4 +283,37 @@
         return 'Bueno';
       }
     }
-    ")]))
+
+    $('.dlg').dialog({
+      onOpen: function() {
+        let the_url = '/table_ref/unique_vehiculos';
+      }
+    });
+
+    $('.fm').form({
+      onLoadSuccess: function(){
+        let d = new Date();
+        let imgValue = $('#imagen').val();
+        let imgPath = '" (:path config) "';
+        let imgSrc = imgPath + imgValue + '?' + d.getTime();
+        let the_url = '/table_ref/vehiculos';
+        let valor = $('#vehiculo_id').combobox('getValue');
+        if(valor) {
+          $('#vehiculo_id').combobox('reload', the_url);
+          $('#vehiculo_id').combobox('readonly', true);
+        }
+        $('#image1').attr('src', imgSrc);
+      }
+    });
+    
+    $('#image1').click(function() {
+      var img = $('#image1');
+      if(img.width() < 500) {
+        img.animate({width: '500', height: '500'}, 1000);
+      } else {
+        img.animate({width: img.attr(\"width\"), height: img.attr(\"height\")}, 1000);
+      }
+    });
+    "
+    )]
+  ))

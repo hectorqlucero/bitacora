@@ -359,10 +359,10 @@
 ;; End upload form
 
 (defn build-form-save
-  [params table & path]
+  [params table & args]
   (try
     (if-not (nil? (:file params))
-      (process-upload-form params table (first path))
+      (process-upload-form params table (first (:path args)))
       (process-regular-form params table))
     (catch Exception e (.getMessage e))))
 
