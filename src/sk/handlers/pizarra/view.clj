@@ -1,7 +1,8 @@
 (ns sk.handlers.pizarra.view
   (:require [sk.handlers.pizarra.sql :refer :all]
-            [sk.models.crud :refer [config]]
-            [sk.models.crud :refer [Query db]]))
+            [sk.models.util :refer [build-img-html]]
+            [sk.models.crud :refer [config Query db]])
+  (:import [java.util UUID]))
 
 ;; Start vehiculos table
 (defn build-vehiculos-row [row]
@@ -69,10 +70,7 @@
 ;; Start inv_vehiculos table
 (defn build-inv_vehiculos-row [row]
   [:tr
-   [:td [:img {:src (str (:path config) (:imagen row))
-               :width "90"
-               :height "100"
-               :onError "this.src='/images/placeholder_profile.png'"}]]
+   [:td (build-img-html (:imagen row) (str (UUID/randomUUID)) (:path config))]
    [:td (:sucursal row)]
    [:td (:chofer row)]
    [:td (:fecha row)]

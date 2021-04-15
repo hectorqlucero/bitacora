@@ -41,7 +41,7 @@
                      labelPosition:'top',
                      required:true,
                      width:'100%',
-                     url:'/table_ref/unique_vehiculos',
+                     url:'/table_ref/vehiculos',
                      method:'GET',
                      onSelect: function(rec) {
                       var valor_serie = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+rec.value, async: false}).responseText;
@@ -226,7 +226,7 @@
   (str
     "
     function newItem() {
-      let the_url = '/table_ref/unique_vehiculos';
+      let the_url = '/table_ref/vehiculos';
       dg.datagrid('unselectAll');
       $('#image1').attr('src','/images/placeholder_profile.png');
       dlg.dialog('open').dialog('center').dialog('setTitle', 'Nuevo Record');
