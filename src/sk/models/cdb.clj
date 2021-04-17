@@ -48,7 +48,8 @@
   chofer varchar(45) DEFAULT NULL,
   tipo_licencia varchar(20) DEFAULT NULL,
   num_licencia varchar(20) NOT NULL,
-  sucursal int(10) NOT NULL
+  sucursal int(10) NOT NULL,
+  CONSTRAINT fk_choferes_sucursal FOREIGN KEY (sucursal) REFERENCES sucursales(id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 
 (def choferes-rows
@@ -109,7 +110,9 @@
   modelo_ano varchar(10) DEFAULT NULL,
   chofer_asignado int(10) NOT NULL,
   sucursal int(10) NOT NULL,
-  UNIQUE INDEX num_serie (num_serie)
+  UNIQUE INDEX num_serie (num_serie),
+  CONSTRAINT fk_vehiculos_sucursal FOREIGN KEY (sucursal) REFERENCES sucursales(id),
+  CONSTRAINT fk_vehiculos_chofer_asignado FOREIGN KEY (chofer_asignado) REFERENCES choferes(id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 
 (def vehiculos-rows
@@ -241,7 +244,8 @@
   `esteticatanquegas` int(10) DEFAULT NULL,
   `condicionesmarcadores` int(10) DEFAULT NULL,
   `bujesorqtra` int(10) DEFAULT NULL,
-  `imagen` varchar(100) DEFAULT NULL
+  `imagen` varchar(100) DEFAULT NULL,
+  CONSTRAINT fk_inv_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
@@ -361,16 +365,17 @@
   "
   CREATE TABLE `bitacora` (
   `id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `num_serie` varchar(17) NOT NULL,
+  `vehiculo_id` int(10) NOT NULL,
   `fecha_reparacion` date NOT NULL,
   `desc_reparacion` varchar(100) NOT NULL,
-  `observaciones` varchar(100) NOT NULL
+  `observaciones` varchar(100) NOT NULL,
+  CONSTRAINT fk_bitacora_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
 (def bitacora-rows
   [{:id 1
-    :num_serie "LC6PCJK63H0003222"
+    :vehiculo_id 1
     :fecha_reparacion "2020-12-25"
     :desc_reparacion "CAMBIO DE BUJES"
     :observaciones "MAL ESTADO DAÑADO"}])
@@ -430,65 +435,59 @@
   ;; End bitacora table
   )
 
-(defn reset-database
-  "Removes existing tables and re-creates them"
-  []
-  ;; Start users table
-  (Query! db "DROP table IF EXISTS users")
+(defn drop-tables []
+  (Query! db "DROP table IF EXISTS bitacora")
+  (Query! db "DROP table IF EXISTS inv_vehiculos")
+  (Query! db "DROP table IF EXISTS vehiculos")
+  (Query! db "DROP table IF EXISTS choferes")
+  (Query! db "DROP table IF EXISTS sucursales")
+  (Query! db "DROP table IF EXISTS estado")
+  (Query! db "DROP table IF EXISTS users"))
+
+(defn create-tables []
   (Query! db users-sql)
+  (Query! db estado-sql)
+  (Query! db sucursales-sql)
+  (Query! db choferes-sql)
+  (Query! db vehiculos-sql)
+  (Query! db inv_vehiculos-sql)
+  (Query! db bitacora-sql))
+
+(defn populate-tables []
   (Query! db "LOCK TABLES users WRITE;")
   (Insert-multi db :users users-rows)
   (Query! db "UNLOCK TABLES;")
-  ;; End users table
 
-  ;; Start sucursales table
-  (Query! db "DROP table IF EXISTS sucursales")
-  (Query! db sucursales-sql)
-  (Query! db "LOCK TABLES sucursales WRITE;")
-  (Insert-multi db :sucursales sucursales-rows)
-  (Query! db "UNLOCK TABLES;")
-  ;; End sucursales table
-
-  ;; Start choferes table
-  (Query! db "DROP table IF EXISTS choferes")
-  (Query! db choferes-sql)
-  (Query! db "LOCK TABLES choferes WRITE;")
-  (Insert-multi db :choferes choferes-rows)
-  (Query! db "UNLOCK TABLES;")
-  ;; End choferes table
-
-  ;; Start vehiculos table
-  (Query! db "DROP table IF EXISTS vehiculos")
-  (Query! db vehiculos-sql)
-  (Query! db "LOCK TABLES vehiculos WRITE;")
-  (Insert-multi db :vehiculos vehiculos-rows)
-  (Query! db "UNLOCK TABLES;")
-  ;; End vehiculos table
-
-  ;; Start estado table
-  (Query! db "DROP table IF EXISTS estado")
-  (Query! db estado-sql)
   (Query! db "LOCK TABLES estado WRITE;")
   (Insert-multi db :estado estado-rows)
   (Query! db "UNLOCK TABLES;")
-  ;; End estado table
 
-  ;; Start inv_vehiculos table
-  (Query! db "DROP table IF EXISTS inv_vehiculos")
-  (Query! db inv_vehiculos-sql)
+  (Query! db "LOCK TABLES sucursales WRITE;")
+  (Insert-multi db :sucursales sucursales-rows)
+  (Query! db "UNLOCK TABLES;")
+
+  (Query! db "LOCK TABLES choferes WRITE;")
+  (Insert-multi db :choferes choferes-rows)
+  (Query! db "UNLOCK TABLES;")
+
+  (Query! db "LOCK TABLES vehiculos WRITE;")
+  (Insert-multi db :vehiculos vehiculos-rows)
+  (Query! db "UNLOCK TABLES;")
+
   (Query! db "LOCK TABLES inv_vehiculos WRITE;")
   (Insert-multi db :inv_vehiculos inv_vehiculos-rows)
   (Query! db "UNLOCK TABLES;")
-  ;; End inv_vehiculos table
 
-  ;; Start bitacora table
-  (Query! db "DROP table IF EXISTS bitacora")
-  (Query! db bitacora-sql)
   (Query! db "LOCK TABLES bitacora WRITE;")
   (Insert-multi db :bitacora bitacora-rows)
-  (Query! db "UNLOCK TABLES;")
-  ;; End bitacora table
-  )
+  (Query! db "UNLOCK TABLES;"))
+
+(defn reset-database
+  "Removes existing tables and re-creates them"
+  []
+  (drop-tables)
+  (create-tables)
+  (populate-tables))
 
 (defn migrate []
   "Migrate by the seat of my pants"
