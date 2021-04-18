@@ -67,7 +67,7 @@
   LEFT JOIN vehiculos v on i.vehiculo_id = v.id
   LEFT JOIN choferes c on v.chofer_asignado = c.id
   LEFT JOIN sucursales s on v.sucursal = s.id
-  ORDER BY v.sucursal,i.fecha")
+  ORDER BY v.sucursal,i.fecha desc")
 
 (defn inv_vehiculos []
   (Query db inv_vehiculos-sql))
