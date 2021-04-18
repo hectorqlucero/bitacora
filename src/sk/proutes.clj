@@ -68,5 +68,6 @@
 
   ;; Start pizarra
   (GET "/pizarra" req [] (pizarra/pizarra req))
+  (GET "/pizarra/process/:id" [id] (pizarra/pizarra-process id))
   ;; ENd pizarra
   )

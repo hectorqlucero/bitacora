@@ -44,6 +44,7 @@
   LEFT JOIN vehiculos v on b.vehiculo_id = v.id
   LEFT JOIN sucursales s on v.sucursal = s.id
   LEFT JOIN choferes c on v.chofer_asignado = c.id
+  WHERE v.sucursal = ?
   ORDER BY s.sucursal,fecha desc")
 
 (defn bitacoras []
@@ -67,6 +68,7 @@
   LEFT JOIN vehiculos v on i.vehiculo_id = v.id
   LEFT JOIN choferes c on v.chofer_asignado = c.id
   LEFT JOIN sucursales s on v.sucursal = s.id
+  WHERE v.sucursal = ?
   ORDER BY v.sucursal,i.fecha desc")
 
 (defn inv_vehiculos []
