@@ -10,13 +10,13 @@
   (list
     [:input {:type "hidden" :id "id" :name "id"}]
     (build-field
-      {:id "num_serie"
-       :name "num_serie"
+      {:id "vehiculo_id"
+       :name "vehiculo_id"
        :class "easyui-combobox"
        :prompt "Por favor seleccione"
-       :data-options "label:'Nuero de serie:',
+       :data-options "label:'vehiculo:',
                      labelPosition:'top',
-                     url:'/table_ref/nserie',
+                     url:'/table_ref/vehiculos',
                      method:'GET',
                      required:true,
                      width:'100%'"})
@@ -53,6 +53,8 @@
       title
       "/bitacora"
       (list
+        [:th {:data-options "field:'sucursal',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Sucursal"]]
+        [:th {:data-options "field:'vehiculo_id',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Vehiculo"]]
         [:th {:data-options "field:'num_serie',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
         [:th {:data-options "field:'fecha_reparacion_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Fecha de reparacion"]]
         [:th {:data-options "field:'desc_reparacion',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Descripción de Reparacion"]]

@@ -58,17 +58,6 @@
        :data-options "label:'Numero Licencia:',
                      labelPosition:'top',
                      required:true,
-                     width:'100%'"})
-    (build-field
-      {:id "sucursal"
-       :name "sucursal"
-       :class "easyui-combobox"
-       :prompt "Por favor seleccione"
-       :data-options "label:'Sucursal:',
-                     labelPosition:'top',
-                     url:'/table_ref/sucursales',
-                     method:'GET',
-                     required:true,
                      width:'100%'"})))
 
 (defn choferes-view [title]
@@ -80,20 +69,10 @@
       (list
         [:th {:data-options "field:'chofer',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Chofer"]]
         [:th {:data-options "field:'tipo_licencia',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Tipo Licencia"]]
-        [:th {:data-options "field:'num_licencia',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero Licencia"]]
-        [:th {:data-options "field:'sucursal',sortable:true,fixed:false"
-              :formatter "get_sucursal"} [:span {:style "font-weight:bold;"} "Sucursal"]]))
+        [:th {:data-options "field:'num_licencia',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero Licencia"]]))
     (build-toolbar)
     (build-dialog title dialog-fields)))
 
 (defn choferes-scripts []
   (list
-  (include-js "/js/grid.js")
-  [:script
-   (str
-     "
-     function get_sucursal(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/sucursal/'+val, async: false}).responseText;
-      return valor;
-     }
-     ")]))
+  (include-js "/js/grid.js")))

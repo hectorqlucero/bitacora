@@ -33,7 +33,7 @@
 (def get-vehiculos-sql
   "SELECT
   id AS value,
-  CONCAT('Vehiculo: ',vehiculo,' Modelo: ',modelo,' Serie: ',num_serie) as text
+  CONCAT('Vehiculo: ',vehiculo,' Serie: ',num_serie) as text
   FROM vehiculos
   ORDER BY modelo")
 

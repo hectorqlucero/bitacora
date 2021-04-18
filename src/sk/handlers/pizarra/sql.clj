@@ -36,6 +36,7 @@
   v.num_serie,
   v.modelo,
   v.modelo_ano,
+  b.fecha_reparacion as fecha,
   DATE_FORMAT(b.fecha_reparacion,'%m/%d/%Y') as fecha_reparacion,
   b.desc_reparacion,
   b.observaciones
@@ -43,7 +44,7 @@
   LEFT JOIN vehiculos v on b.vehiculo_id = v.id
   LEFT JOIN sucursales s on v.sucursal = s.id
   LEFT JOIN choferes c on v.chofer_asignado = c.id
-  ORDER BY s.sucursal,b.fecha_reparacion")
+  ORDER BY s.sucursal,fecha desc")
 
 (defn bitacoras []
   (Query db bitacora-sql))
