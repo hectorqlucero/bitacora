@@ -33,6 +33,28 @@
     [:input {:type "hidden" :id "id" :name "id"}]
     (build-image-field)
     (build-field
+      {:id "sucursal_id"
+       :name "sucursal_id"
+       :class "easyui-combobox"
+       :prompt "Por favor seleccione"
+       :data-options "label:'Sucursal:',
+                     labelPosition:'top',
+                     required:true,
+                     width:'100%',
+                     url:'/table_ref/sucursales',
+                     method:'GET'"})
+    (build-field
+      {:id "chofer_id"
+       :name "chofer_id"
+       :class "easyui-combobox"
+       :prompt "Por favor seleccione"
+       :data-options "label:'Chofer:',
+                     labelPosition:'top',
+                     required:true,
+                     width:'100%',
+                     url:'/table_ref/choferes',
+                     method:'GET'"})
+    (build-field
       {:id "vehiculo_id"
        :name "vehiculo_id"
        :class "easyui-combobox"
@@ -42,37 +64,7 @@
                      required:true,
                      width:'100%',
                      url:'/table_ref/vehiculos',
-                     method:'GET',
-                     onSelect: function(rec) {
-                      var valor_serie = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+rec.value, async: false}).responseText;
-                      var valor_chofer = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+rec.value, async: false}).responseText;
-                      $('#num_serie').combobox('setValue',valor_serie);
-                      $('#chofer').combobox('setValue',valor_chofer);
-                     }"})
-    (build-field
-      {:id "chofer"
-       :name "chofer"
-       :class "easyui-combobox"
-       :data-options "label:'Chofer:',
-                     labelPosition:'top',
-                     method:'GET',
-                     valueField:'value',
-                     textField:'text',
-                     limitToList:true,
-                     disabled:true,
-                     width:'100%'"})
-    (build-field
-      {:id "num_serie"
-       :name "num_serie"
-       :class "easyui-combobox"
-       :data-options "method:'GET',
-                     valueField:'value',
-                     textField:'text',
-                     limitToList:true,
-                     label:'Numero de Serie:',
-                     labelPosition:'top',
-                     disabled:true,
-                     width:'100%'"})
+                     method:'GET'"})
     (build-field
       {:id "lec_odometro"
        :name "lec_odometro"
@@ -155,66 +147,13 @@
       title
       "/inventario"
       (list
-        [:th {:data-options "field:'vehiculo_id_extra',sortable:true,fixed:false"
-              :formatter "get_chofer"} [:span {:style "font-weight:bold;"} "Chofer"]]
+        [:th {:data-options "field:'sucursal_id_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Sucursal"]]
+        [:th {:data-options "field:'chofer_id_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Chofer"]]
         [:th {:data-options "field:'imagen',sortable:true,fixed:false"
               :formatter "imagenShow"} [:span {:style "font-weight:bold;"} "Foto"]]
-        [:th {:data-options "field:'vehiculo_id',sortable:true,fixed:false"
-              :formatter "get_serie"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
+        [:th {:data-options "field:'num_serie',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Numero de Serie"]]
         [:th {:data-options "field:'lec_odometro',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Lectura Odometro"]]
         [:th {:data-options "field:'fecha_formatted',sortable:true,fixed:false"} [:span {:style "font-weight:bold;"} "Fecha"]]
-        ; (build-th "Retrovisores" "retrovisores")
-        ; (build-th "Llanta Delantera" "llanta_D")
-        ; (build-th "Llanta Trasera" "llanta_T")
-        ; (build-th "Direccionales" "direccionales")
-        ; (build-th "Foco Delantero" "foco_del")
-        ; (build-th "Cadena" "cadena")
-        ; (build-th "Topes manublio derecho" "topesmanubliod")
-        ; (build-th "Topes manublio izquierdo" "topesmanublioI")
-        ; (build-th "Stop" "stop")
-        ; (build-th "Luz trasera" "luztrasera")
-        ; (build-th "Luz muerta Delantera" "luzmuertaD")
-        ; (build-th "Resorte Stand" "ResorteStand")
-        ; (build-th "Resorte Caballete" "ResorteCaballete")
-        ; (build-th "Bujes Rin Trasero" "bujesRinT")
-        ; (build-th "Bujias" "Bujias")
-        ; (build-th "Cable Cluth" "CableCluth")
-        ; (build-th "Cable Acelerador" "CableAcel")
-        ; (build-th "Cable Velocidades" "CableVel")
-        ; (build-th "Tapon Aceite" "TaponAceite")
-        ; (build-th "Micas Dirección Delantera" "MicasDirD")
-        ; (build-th "Micas Dirección Trasera" "MicasDirT")
-        ; (build-th "Claxon" "claxon")
-        ; (build-th "Orquilla Delantera" "OrquillaDel")
-        ; (build-th "Retenes" "Retenes")
-        ; (build-th "Nivel Aceite" "NivelAceite")
-        ; (build-th "Ajustadores Cadena" "AjustadoresCad")
-        ; (build-th "Guardafango" "Guardafango")
-        ; (build-th "Tapadera Lados" "TapaderaLados")
-        ; (build-th "Tapadera Filtro" "TapaderaFiltro")
-        ; (build-th "Tapadera Pila" "TapaderaPila")
-        ; (build-th "Balatas Delanteras" "BalatasDel")
-        ; (build-th "Balatas Traseras" "BalatasTra")
-        ; (build-th "Pila" "Pila")
-        ; (build-th "Selector Cambios" "SelectorCambios")
-        ; (build-th "Relay Direcciones" "RelayDirecciones")
-        ; (build-th "Guardacadenas" "Guardacadenas")
-        ; (build-th "Tope Asiento" "TopeAsiento")
-        ; (build-th "Hule Reposapie Izquierdo" "HuleReposapieIzq")
-        ; (build-th "Hule Reposapie Derecho" "HuleReposapieDer")
-        ; (build-th "Reposamano Freno Delantero" "ReposamanoFrenoDel")
-        ; (build-th "Cluth" "Cluth")
-        ; (build-th "Liquido Freno" "LiquidoFreno")
-        ; (build-th "Tolba Mofle" "TolbaMofle")
-        ; (build-th "ReposaPieCop Izquierdo" "ReposaPieCop_Izq")
-        ; (build-th "ReposaPieCop Derecho" "ReposaPieCop_Der")
-        ; (build-th "Herramienta" "Herramienta")
-        ; (build-th "Switch Encendido" "SwitchEncendido")
-        ; (build-th "Switch Luces" "SwitchLuces")
-        ; (build-th "Switch Direccionales" "SwitchDireccionales")
-        ; (build-th "Estetica Tanque Gas" "EsteticaTanqueGas")
-        ; (build-th "Condiciones Marcadores" "CondicionesMarcadores")
-        ;(build-th "Bujes Orq Trasera" "BujesOrqTra")
         ))
     (build-toolbar)
     (build-dialog title dialog-fields)))
@@ -236,16 +175,6 @@
       $('#vehiculo_id').combobox('readonly', false);
       $('#vehiculo_id').combobox('reload', the_url);
       url = window.location.href;
-    }
-
-    function get_chofer(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/v_chofer/'+val, async: false}).responseText;
-      return valor;
-    }
-
-    function get_serie(val, row, index) {
-      var valor = $.ajax({type: 'GET', url: '/table_ref/v_serie/'+val, async: false}).responseText;
-      return valor;
     }
 
     function resizeImage(imgObject) {

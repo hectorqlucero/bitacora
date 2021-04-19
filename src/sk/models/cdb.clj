@@ -107,121 +107,77 @@
   num_serie varchar(17) DEFAULT NULL,
   modelo varchar(45) DEFAULT NULL,
   modelo_ano varchar(10) DEFAULT NULL,
-  chofer_asignado int(10) NOT NULL,
-  sucursal int(10) NOT NULL,
-  UNIQUE INDEX num_serie (num_serie),
-  CONSTRAINT fk_vehiculos_sucursal FOREIGN KEY (sucursal) REFERENCES sucursales(id),
-  CONSTRAINT fk_vehiculos_chofer_asignado FOREIGN KEY (chofer_asignado) REFERENCES choferes(id)
+  UNIQUE INDEX num_serie (num_serie)
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8")
 
 (def vehiculos-rows
   [{:id 1
     :vehiculo "suzuky"
     :num_serie "6221"
-    :modelo "moto"
-    :chofer_asignado 20
-    :sucursal 12}
+    :modelo "moto"}
    {:id 2
     :vehiculo "susuky"
-    :num_serie "2929"
-    :chofer_asignado 22
-    :sucursal 16}
+    :num_serie "2929"}
    {:id 3
     :vehiculo "MOTO REGRESO SUZUKY"
     :num_serie "0207"
-    :modelo "SEDEVOLVIO A SUZUKY"
-    :chofer_asignado 20
-    :sucursal 1}
+    :modelo "SEDEVOLVIO A SUZUKY"}
    {:id 4
     :vehiculo "suzuky"
-    :num_serie "6225"
-    :chofer_asignado 11
-    :sucursal 15}
+    :num_serie "6225"}
    {:id 5
     :vehiculo "suzuky"
-    :num_serie "0084"
-    :chofer_asignado 17
-    :sucursal 15}
+    :num_serie "0084"}
    {:id 6
     :vehiculo "suzuky"
-    :num_serie "7606"
-    :chofer_asignado 27
-    :sucursal 1}
+    :num_serie "7606"}
    {:id 7
     :vehiculo "suzuky"
-    :num_serie "5548"
-    :chofer_asignado 18
-    :sucursal 1}
+    :num_serie "5548"}
    {:id 8
     :vehiculo "suzuky"
-    :num_serie "3504"
-    :chofer_asignado 23
-    :sucursal 17}
+    :num_serie "3504"}
    {:id 9
     :vehiculo "suzuky"
-    :num_serie "2858"
-    :chofer_asignado 19
-    :sucursal 1}
+    :num_serie "2858"}
    {:id 10
     :vehiculo "suzuky"
-    :num_serie "3898"
-    :chofer_asignado 16
-    :sucursal 17}
+    :num_serie "3898"}
    {:id 11
     :vehiculo "suzuky"
-    :num_serie "2174"
-    :chofer_asignado 24
-    :sucursal 16}
+    :num_serie "2174"}
    {:id 12
     :vehiculo "suzuky"
-    :num_serie "3402"
-    :chofer_asignado 15
-    :sucursal 15}
+    :num_serie "3402"}
    {:id 13
     :vehiculo "suzuky"
-    :num_serie "7605"
-    :chofer_asignado 10
-    :sucursal 12}
+    :num_serie "7605"}
    {:id 14
     :vehiculo "suzuky"
-    :num_serie "1884"
-    :chofer_asignado 25
-    :sucursal 15}
+    :num_serie "1884"}
    {:id 15
     :vehiculo "MOTO REGRESO SUZUKY"
     :num_serie "0156"
-    :modelo "SE DEVOLVIO PARA SUZUKY"
-    :chofer_asignado 10
-    :sucursal 1}
+    :modelo "SE DEVOLVIO PARA SUZUKY"}
    {:id 16
     :vehiculo "suzuky"
-    :num_serie "3218"
-    :chofer_asignado 26
-    :sucursal 17}
+    :num_serie "3218"}
    {:id 17
     :vehiculo "suzuky"
     :num_serie "1037"
-    :modelo "MOTO"
-    :chofer_asignado 27
-    :sucursal 17}
+    :modelo "MOTO"}
    {:id 18
     :vehiculo "suzuky"
     :num_serie "3945"
-    :modelo "MOTO"
-    :chofer_asignado 14
-    :sucursal 1}
+    :modelo "MOTO"}
    {:id 19
     :vehiculo "suzuky"
     :num_serie "3962"
-    :modelo "MOTO"
-    :chofer_asignado 12
-    :sucursal 1}
+    :modelo "MOTO"}
    {:id 20
     :vehiculo "suzuky"
     :num_serie "2213"
-    :modelo "MOTO"
-    :chofer_asignado 21
-    :sucursal 1}
+    :modelo "MOTO"}
    ])
 ;; End vehiculos table
 
@@ -306,8 +262,10 @@
   `bujesorqtra` int(10) DEFAULT NULL,
   `imagen` varchar(100) DEFAULT NULL,
   `chofer_id` int(10) NOT NULL,
-  CONSTRAINT fk_inv_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id),
-  CONSTRAINT fk_inv_vehiculos_chofere_id FOREIGN KEY (chofer_id) REFERENCES choferes(id)
+  `sucursal_id` int(10) NOT NULL,
+  CONSTRAINT fk_inv_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_inv_vehiculos_chofere_id FOREIGN KEY (chofer_id) REFERENCES choferes(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_inv_vehiculos_sucursal_id FOREIGN KEY (sucursal_id) REFERENCES sucursales(id) ON UPDATE CASCADE ON DELETE CASCADE
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
@@ -369,7 +327,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 17}
+    :chofer_id 17
+    :sucursal_id 15}
    {:id 2
     :vehiculo_id 15
     :lec_odometro 0
@@ -427,7 +386,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 21}
+    :chofer_id 21
+    :sucursal_id 1}
    {:id 3
     :vehiculo_id 3
     :lec_odometro 15
@@ -485,7 +445,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 14}
+    :chofer_id 14
+    :sucursal_id 1}
    {:id 4
     :vehiculo_id 17
     :lec_odometro 60150
@@ -543,7 +504,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 1
-    :chofer_id 27}
+    :chofer_id 27
+    :sucursal_id 17}
    {:id 5
     :vehiculo_id 14
     :lec_odometro 57862
@@ -601,7 +563,8 @@
     :esteticatanqueGas 2
     :condicionesmarcadores 4
     :bujesorqtra 1
-    :chofer_id 25}
+    :chofer_id 25
+    :sucursal_id 15}
    {:id 6
     :vehiculo_id 11
     :lec_odometro 51861
@@ -659,7 +622,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 1
-    :chofer_id 24}
+    :chofer_id 24
+    :sucursal_id 16}
    {:id 7
     :vehiculo_id 11
     :lec_odometro 67929
@@ -717,7 +681,8 @@
     :esteticatanqueGas 1
     :condicionesmarcadores 4
     :bujesorqtra 1
-    :chofer_id 24}
+    :chofer_id 24
+    :sucursal_id 16}
    {:id 8
     :vehiculo_id 20
     :lec_odometro 62
@@ -775,7 +740,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 21}
+    :chofer_id 21
+    :sucursal_id 1}
    {:id 9
     :vehiculo_id 9
     :lec_odometro 35225
@@ -833,7 +799,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 19}
+    :chofer_id 19
+    :sucursal_id 1}
    {:id 10
     :vehiculo_id 4
     :lec_odometro 4
@@ -891,7 +858,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 22}
+    :chofer_id 22
+    :sucursal_id 15}
    {:id 11
     :vehiculo_id 12
     :lec_odometro 53472
@@ -949,7 +917,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 15}
+    :chofer_id 15
+    :sucursal_id 15}
    {:id 12
     :vehiculo_id 8
     :lec_odometro 34261
@@ -1007,7 +976,8 @@
     :esteticatanqueGas 1
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 23}
+    :chofer_id 23
+    :sucursal_id 17}
    {:id 13
     :vehiculo_id 10
     :lec_odometro 35615
@@ -1065,7 +1035,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 16}
+    :chofer_id 16
+    :sucursal_id 17}
    {:id 14
     :vehiculo_id 18
     :lec_odometro 9
@@ -1123,7 +1094,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 14}
+    :chofer_id 14
+    :sucursal_id 1}
    {:id 15
     :vehiculo_id 19
     :lec_odometro 7
@@ -1181,7 +1153,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 12}
+    :chofer_id 12
+    :sucursal_id 1}
    {:id 16
     :vehiculo_id 7
     :lec_odometro 24719
@@ -1239,7 +1212,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 18}
+    :chofer_id 18
+    :sucursal_id 1}
    {:id 17
     :vehiculo_id 1
     :lec_odometro 0
@@ -1297,7 +1271,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 20}
+    :chofer_id 20
+    :sucursal_id 12}
    {:id 18
     :vehiculo_id 4
     :lec_odometro 11606
@@ -1355,7 +1330,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 11}
+    :chofer_id 11
+    :sucursal_id 15}
    {:id 19
     :vehiculo_id 13
     :lec_odometro 56074
@@ -1413,7 +1389,8 @@
     :esteticatanqueGas 1
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 10}
+    :chofer_id 10
+    :sucursal_id 12}
    {:id 20
     :vehiculo_id 6
     :lec_odometro 19329
@@ -1471,7 +1448,8 @@
     :esteticatanqueGas 4
     :condicionesmarcadores 4
     :bujesorqtra 4
-    :chofer_id 27}])
+    :chofer_id 27
+    :sucursal_id 1}])
 ;; End inv_vehiculos table
 
 ;; Start sucursales table
@@ -1505,16 +1483,1011 @@
   `desc_reparacion` varchar(100) NOT NULL,
   `observaciones` varchar(100) NOT NULL,
   `vehiculo_id` int(10) NOT NULL,
-  CONSTRAINT fk_bitacora_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id)
+  `sucursal_id` int(10) NOT NULL,
+  CONSTRAINT fk_bitacora_vehiculos_vehiculo_id FOREIGN KEY (vehiculo_id) REFERENCES vehiculos(id) ON UPDATE CASCADE ON DELETE CASCADE,
+  CONSTRAINT fk_bitacora_sucursal_id FOREIGN KEY (sucursal_id) REFERENCES sucursales(id) ON UPDATE CASCADE ON DELETE CASCADE
   ) ENGINE=InnoDB DEFAULT CHARSET=utf8
   ")
 
 (def bitacora-rows
-  [{:id 1
+  [
+   {:id 1
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KMl"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 2
+    :fecha_reparacion "2020-02-05"
+    :desc_reparacion "Cambio de bujes rin trasero"
+    :observaciones "KM20155"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 3
+    :fecha_reparacion "2020-03-05"
+    :desc_reparacion "Cambio de cadena y esprock trasero y delantero"
+    :observaciones "KM21731"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 4
+    :fecha_reparacion "2020-03-11"
+    :desc_reparacion "Cambio de chicote del clochs"
+    :observaciones "KM22100"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 5
+    :fecha_reparacion "2020-04-07"
+    :desc_reparacion "Cambio de bateria LTH"
+    :observaciones "KM23836"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 6
+    :fecha_reparacion "2020-05-06"
+    :desc_reparacion "Cambio de balatas delanteras"
+    :observaciones "KM25728"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 7
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM27028"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 8
+    :fecha_reparacion "2020-05-29"
+    :desc_reparacion "Cambio de llanta delantera Horng Fortune"
+    :observaciones "KM27100"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 9
+    :fecha_reparacion "2020-06-27"
+    :desc_reparacion "Cambio de chicote velocimetro"
+    :observaciones "KM27606"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 10
+    :fecha_reparacion "2020-07-01"
+    :desc_reparacion "Cambio de llanta trasera Shinko lisa y bujia y soldada de rin trasero"
+    :observaciones "KM27640"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 11
+    :fecha_reparacion "2020-07-23"
+    :desc_reparacion "Cambio de barras delanteras"
+    :observaciones "KM28878"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 12
+    :fecha_reparacion "2020-09-04"
+    :desc_reparacion "Cambio de pata de cambios y chicote del clochs"
+    :observaciones "KM31511"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 13
+    :fecha_reparacion "2020-09-19"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM31943"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 14
+    :fecha_reparacion "2020-11-09"
+    :desc_reparacion "Cambio de balatas delanteras y traseras y esprock trasero delantero ISK JAPAN"
+    :observaciones "KM34699"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 15
+    :fecha_reparacion "2020-11-18"
+    :desc_reparacion "Cambio de llanta delantera barilla de freno trasero guardafango balatas traseras"
+    :observaciones "KM50600"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 16
+    :fecha_reparacion "2020-11-26"
+    :desc_reparacion "Cambio de cadena llanta trasera y control de ensendido SHINKO"
+    :observaciones "KM35792"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 17
+    :fecha_reparacion "2020-01-13"
+    :desc_reparacion "Xcambio de llanta delantera SINKO y chicote del velocimetro"
+    :observaciones "KM38085"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 18
+    :fecha_reparacion "2021-03-01"
+    :desc_reparacion "Cambio de pila LTH A07DY"
+    :observaciones "KM40400"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 19
+    :fecha_reparacion "2021-03-09"
+    :desc_reparacion "Cambio de selector de cambios y cambio de esprock trasero"
+    :observaciones "KM40794"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 20
+    :fecha_reparacion "2021-03-19"
+    :desc_reparacion "Cambio de balatas delanteras isk"
+    :observaciones "KM41202"
+    :vehiculo_id 5
+    :sucursal_id 15}
+   {:id 21
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM16759"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 22
+    :fecha_reparacion "2020-02-19"
+    :desc_reparacion "Cambio de disco delantero"
+    :observaciones "KM17942"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 23
+    :fecha_reparacion "2020-04-15"
+    :desc_reparacion "Cambio de cadena y esprock y ajuste balatas traseras"
+    :observaciones "KM"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 24
+    :fecha_reparacion "2020-05-21"
+    :desc_reparacion "Cambio de llanta trasera SHINKO y delantera FURTUNE"
+    :observaciones "KM 53262"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 25
+    :fecha_reparacion "2020-05-27"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 53693"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 26
+    :fecha_reparacion "2020-05-29"
+    :desc_reparacion "Cambio del clochs"
+    :observaciones "KM 53765"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 27
+    :fecha_reparacion "2020-07-09"
+    :desc_reparacion "Lavade de carburador y soldada de pata del esten"
+    :observaciones "KM 56336"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 28
+    :fecha_reparacion "2020-09-19"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 60215"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 29
+    :fecha_reparacion "2020-09-24"
+    :desc_reparacion "Cambio de llanta trasera SHINKO"
+    :observaciones "KM 60233"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 30
+    :fecha_reparacion "2020-10-02"
+    :desc_reparacion "Cambio de pila LTH A07DY"
+    :observaciones "KM 60694"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 31
+    :fecha_reparacion "2020-10-05"
+    :desc_reparacion "Cambio de barras delanteras guardafango balatas delanteras y caballete"
+    :observaciones "KM 60829"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 32
+    :fecha_reparacion "2020-12-10"
+    :desc_reparacion "Cambio de balatas traseras JAPAN"
+    :observaciones "KM 60901"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 33
+    :fecha_reparacion "2021-01-07"
+    :desc_reparacion "Recorte de cadena"
+    :observaciones "KM 62321"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 34
+    :fecha_reparacion "2021-01-13"
+    :desc_reparacion "Cambio de baleros del rin trasero"
+    :observaciones "KM 62690"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 35
+    :fecha_reparacion "2021-02-04"
+    :desc_reparacion "Cambio de sprock trasero y delantero y cadena"
+    :observaciones "KM 63850"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 36
+    :fecha_reparacion "2021-02-13"
+    :desc_reparacion "Cambio de barras delanteras y caja de repartos"
+    :observaciones "KM 64136"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 37
+    :fecha_reparacion "2021-02-25"
+    :desc_reparacion "Cambio de llanta delantera y balatas traseras"
+    :observaciones "KM 64697"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 38
+    :fecha_reparacion "2021-03-24"
+    :desc_reparacion "Cambio de reten barra derecha"
+    :observaciones "KM 66104"
+    :vehiculo_id 14
+    :sucursal_id 15}
+   {:id 39
+    :fecha_reparacion "2019-04-08"
+    :desc_reparacion "Cambio de selector de cambios"
+    :observaciones "KM"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 40
+    :fecha_reparacion "2019-11-04"
+    :desc_reparacion "Cambio de cadena y esprock delantero"
+    :observaciones "KM"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 41
+    :fecha_reparacion "2020-03-03"
+    :desc_reparacion "Cambio de esprock trasero y palanca del clochs"
+    :observaciones "KM"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 42
+    :fecha_reparacion "2020-03-17"
+    :desc_reparacion "Cambio de balatas traseras reconstruidas y chicote del velocimetro"
+    :observaciones "KM 61190"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 43
+    :fecha_reparacion "2020-04-22"
+    :desc_reparacion "Cambio de palanca de clochs"
+    :observaciones "KM 63175"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 44
+    :fecha_reparacion "2020-05-05"
+    :desc_reparacion "Cambio de balatas traseras y llanta SHINKO LISA"
+    :observaciones "KM 63866"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 45
+    :fecha_reparacion "2020-05-15"
+    :desc_reparacion "Cambio de cadena y sprock trasero"
+    :observaciones "KM 64416"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 46
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 65059"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 47
+    :fecha_reparacion "2020-06-20"
+    :desc_reparacion "Cmbio de barras delanteras"
+    :observaciones "KM 66254"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 48
+    :fecha_reparacion "2020-06-25"
+    :desc_reparacion "Cambio del chicote del clochs"
+    :observaciones "KM 66397"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 49
+    :fecha_reparacion "2020-07-06"
+    :desc_reparacion "Soldada del mofle y cambio de balatas delanteras ISK"
+    :observaciones "KM 67178"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 50
+    :fecha_reparacion "2020-07-09"
+    :desc_reparacion "Cambio de llanta delantera AKTIB"
+    :observaciones "KM 67346"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 51
+    :fecha_reparacion "2020-09-04"
+    :desc_reparacion "Cambio del chicote del clohs y soquet de luz trasera"
+    :observaciones "KM 67918"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 52
+    :fecha_reparacion "2020-09-15"
+    :desc_reparacion "Cambio de aceite y soldada del caballete"
+    :observaciones "KM 68020"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 53
+    :fecha_reparacion "2020-12-05"
+    :desc_reparacion "Cambio de palanca freno delantero y chicote del velocimetro y retenes de horquilla delantera"
+    :observaciones "KM 68112"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 54
+    :fecha_reparacion "2021-02-05"
+    :desc_reparacion "Cambio de pila LTH y balatas traseras JAPAN retrovisores"
+    :observaciones "KM 67929"
+    :vehiculo_id 11
+    :sucursal_id 16}
+   {:id 55
+    :fecha_reparacion "2019-12-05"
+    :desc_reparacion "Cambio de cadena y porta cadena tope derecho"
+    :observaciones "KM 17988"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 56
+    :fecha_reparacion "2020-01-30"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 21070"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 57
+    :fecha_reparacion "2020-02-11"
+    :desc_reparacion "Cambio de balatas delanteras"
+    :observaciones "KM 21649"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 58
+    :fecha_reparacion "2020-04-13"
+    :desc_reparacion "Cambio de llanta delantera SHINKO y chicote velocimetro"
+    :observaciones "KM 25020"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 59
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 27519"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 60
+    :fecha_reparacion "2020-06-25"
+    :desc_reparacion "Cambio de bujes rin trasero y llanta trasera SHINKO"
+    :observaciones "KM 28930"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 61
+    :fecha_reparacion "2020-09-15"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 31092"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 62
+    :fecha_reparacion "2020-10-16"
+    :desc_reparacion "Cambio de cadena selector de cambios y esprock delantero"
+    :observaciones "KM 32841"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 63
+    :fecha_reparacion "2020-11-13"
+    :desc_reparacion "Cambio de balatas delanteras ISK"
+    :observaciones "KM 33712"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 64
+    :fecha_reparacion "2021-02-02"
+    :desc_reparacion "Cambio de chicote del clochs y resorte del esten"
+    :observaciones "KM 35225"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 65
+    :fecha_reparacion "2021-02-03"
+    :desc_reparacion "Se le puso aumento balatas traseras"
+    :observaciones "KM 35262"
+    :vehiculo_id 9
+    :sucursal_id 1}
+   {:id 66
+    :fecha_reparacion "2021-02-04"
+    :desc_reparacion "Cambio de foco X dos barras led"
+    :observaciones "KM 9685"
+    :vehiculo_id 2
+    :sucursal_id 16}
+   {:id 67
+    :fecha_reparacion "2021-02-27"
+    :desc_reparacion "Cambio de llanta trasera marca SHINKO"
+    :observaciones "KM 10702"
+    :vehiculo_id 2
+    :sucursal_id 16}
+   {:id 68
+    :fecha_reparacion "2021-03-22"
+    :desc_reparacion "Cambio de cadena y aumento a las balatas traseras"
+    :observaciones "KM 66374"
+    :vehiculo_id 16
+    :sucursal_id 17}
+   {:id 69
+    :fecha_reparacion "2021-04-08"
+    :desc_reparacion "Cambio de chicote del clochs y balatas traseras marca japan"
+    :observaciones "KM 66783"
+    :vehiculo_id 16
+    :sucursal_id 17}
+   {:id 70
+    :fecha_reparacion "2019-12-27"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 35236"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 71
+    :fecha_reparacion "2020-01-15"
+    :desc_reparacion "Cambio de llanta trasera SHINKO"
+    :observaciones "KM 36386"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 72
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 37309"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 73
+    :fecha_reparacion "2020-02-29"
+    :desc_reparacion "Cambio de balatas delanteras"
+    :observaciones "KM 39483"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 74
+    :fecha_reparacion "2020-03-12"
+    :desc_reparacion "Cambio de llata delantera SHINKO y parrilla de caja"
+    :observaciones "KM 40364"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 75
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 45384"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 76
+    :fecha_reparacion "2020-06-11"
+    :desc_reparacion "Cambio de bujes del rin trasero y sprock delantero"
+    :observaciones "KM 46157"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 77
+    :fecha_reparacion "2020-07-09"
+    :desc_reparacion "Cambio de cadena y sprock trasero"
+    :observaciones "KM 47764"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 78
+    :fecha_reparacion "2020-07-23"
+    :desc_reparacion "Cambio del soquet de luz de stop"
+    :observaciones "KM 48701"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 79
+    :fecha_reparacion "2020-08-20"
+    :desc_reparacion "Cambio de balata delantera ISK"
+    :observaciones "KM 50251"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 80
+    :fecha_reparacion "2020-09-19"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 51887"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 81
+    :fecha_reparacion "2020-11-26"
+    :desc_reparacion "Cambio de pila"
+    :observaciones "KM 53661"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 82
+    :fecha_reparacion "2021-03-19"
+    :desc_reparacion "Cambio de balatas delanteras marca isk y esprock trasero"
+    :observaciones "KM 60057"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 83
+    :fecha_reparacion "2021-03-24"
+    :desc_reparacion "Se le cambio hambos retenes de horquillas y guardafango"
+    :observaciones "KM 60328"
+    :vehiculo_id 12
+    :sucursal_id 15}
+   {:id 84
+    :fecha_reparacion "2019-01-07"
+    :desc_reparacion "Cambio de cadena y balatas delanteras sixti"
+    :observaciones "KM 16742"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 85
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 17876"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 86
+    :fecha_reparacion "2020-05-22"
+    :desc_reparacion "Cambio de llanta trasera shinko lisa"
+    :observaciones "KM 25100"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 87
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 25582"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 88
+    :fecha_reparacion "2020-06-13"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 26673"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 89
+    :fecha_reparacion "2020-09-17"
+    :desc_reparacion "Cambio de aceite llanta delantera y spcock delantero"
+    :observaciones "KM 33485"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 90
+    :fecha_reparacion "2020-10-02"
+    :desc_reparacion "Cambio bujes traseros y balatas delanteras isk"
+    :observaciones "KM 34261"
+    :vehiculo_id 8
+    :sucursal_id 17}
+   {:id 91
+    :fecha_reparacion "2019-11-04"
+    :desc_reparacion "Cambio de foco delantero x una barra led"
+    :observaciones "KM 12421"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 92
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 16751"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 93
+    :fecha_reparacion "2020-03-11"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 19200"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 94
+    :fecha_reparacion "2020-04-16"
+    :desc_reparacion "Cambio de llanta trasera shinko lisa"
+    :observaciones "KM 21398"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 95
+    :fecha_reparacion "2020-04-23"
+    :desc_reparacion "Cambio de chicote del clochs y pila lth"
+    :observaciones "KM 21912"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 96
+    :fecha_reparacion "2020-05-27"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 24546"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 97
+    :fecha_reparacion "2020-06-11"
+    :desc_reparacion "Cambio de llanta delantera aktrib y balatas delanteras isk"
+    :observaciones "KM 25301"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 98
+    :fecha_reparacion "2020-09-19"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 29668"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 99
+    :fecha_reparacion "2021-02-11"
+    :desc_reparacion "Cambio de manija del clochs"
+    :observaciones "KM 36219"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 100
+    :fecha_reparacion "2021-02-26"
+    :desc_reparacion "Cambio de chicote del clochs"
+    :observaciones "KM 36728"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 101
+    :fecha_reparacion "2021-04-08"
+    :desc_reparacion "Cambio de selector de cambios"
+    :observaciones "KM 38286"
+    :vehiculo_id 10
+    :sucursal_id 17}
+   {:id 102
+    :fecha_reparacion "2019-04-08"
+    :desc_reparacion "Cambio de aceite y cable del tacometro"
+    :observaciones "KM 31337"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 103
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM 10543"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 104
+    :fecha_reparacion "2020-03-17"
+    :desc_reparacion "Cambio de balatas delanteras sixti semi metal"
+    :observaciones "KM 13126"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 105
+    :fecha_reparacion "2020-04-13"
+    :desc_reparacion "Cambio de llanta trasera shinko lisa"
+    :observaciones "KM 14514"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 106
+    :fecha_reparacion "2020-05-26"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 16771"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 107
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 17509"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 108
+    :fecha_reparacion "2020-09-08"
+    :desc_reparacion "Cambio de balatas traseras"
+    :observaciones "KM 23749"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 109
+    :fecha_reparacion "2020-09-15"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 24199"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 110
+    :fecha_reparacion "2020-11-11"
+    :desc_reparacion "Cambio del chicote del clochs"
+    :observaciones "KM 26503"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 111
+    :fecha_reparacion "2021-01-13"
+    :desc_reparacion "Cambio de llanta delantera shinko y balatas delanteras isk"
+    :observaciones "KM 30294"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 112
+    :fecha_reparacion "2021-02-18"
+    :desc_reparacion "Cambio de foco delantero x una barrita led"
+    :observaciones "KM"
+    :vehiculo_id 7
+    :sucursal_id 1}
+   {:id 113
+    :fecha_reparacion "2019-12-18"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 5395"
     :vehiculo_id 1
-    :fecha_reparacion "2020-12-25"
-    :desc_reparacion "CAMBIO DE BUJES"
-    :observaciones "MAL ESTADO DAÑADO"}])
+    :sucursal_id 12}
+   {:id 114
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM 7804"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 115
+    :fecha_reparacion "2020-03-02"
+    :desc_reparacion "Cambio de llanta trasera btr uberss"
+    :observaciones "KM 9500"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 116
+    :fecha_reparacion "2020-04-24"
+    :desc_reparacion "Cambio de balatas delanteras y aumento a las balatas traseras"
+    :observaciones "KM 12378"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 117
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 14599"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 118
+    :fecha_reparacion "2020-06-02"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 14893"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 119
+    :fecha_reparacion "2020-06-20"
+    :desc_reparacion "Cambio de chicote del clochs"
+    :observaciones "KM 15953"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 120
+    :fecha_reparacion "2020-09-15"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 21457"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 121
+    :fecha_reparacion "2020-10-02"
+    :desc_reparacion "Cambio de balatas traseras japan"
+    :observaciones "KM 22456"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 122
+    :fecha_reparacion "2020-10-09"
+    :desc_reparacion "Cambio de llanta trasera shinko"
+    :observaciones "KM 22855"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 123
+    :fecha_reparacion "2020-11-18"
+    :desc_reparacion "Cambio de llanta delantera"
+    :observaciones "KM 26284"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 124
+    :fecha_reparacion "2020-12-28"
+    :desc_reparacion "Cambio de foco delantero x una barra led"
+    :observaciones "KM 27532"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 125
+    :fecha_reparacion "2021-01-25"
+    :desc_reparacion "Cambio de balatas delanteras isk"
+    :observaciones "KM 29160"
+    :vehiculo_id 1
+    :sucursal_id 12}
+   {:id 126
+    :fecha_reparacion "2020-09-15"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 10627"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 127
+    :fecha_reparacion "2020-09-23"
+    :desc_reparacion "Cambio de balatas delanteras y soldada de parrilla"
+    :observaciones "KM 11118"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 128
+    :fecha_reparacion "2020-10-10"
+    :desc_reparacion "Se le puso una barra led"
+    :observaciones "KM 12300"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 129
+    :fecha_reparacion "2020-11-14"
+    :desc_reparacion "Cambio de llanta trasera shinko"
+    :observaciones "KM 14634"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 130
+    :fecha_reparacion "2020-11-18"
+    :desc_reparacion "Soldada de pata de cambios"
+    :observaciones "KM 14906"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 131
+    :fecha_reparacion "2020-12-17"
+    :desc_reparacion "Cambio de balatas delanteras y aumento a balatas traseras"
+    :observaciones "KM 17175"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 132
+    :fecha_reparacion "2021-01-13"
+    :desc_reparacion "Cambio de velocimetro"
+    :observaciones "KM 17724"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 133
+    :fecha_reparacion "2021-02-04"
+    :desc_reparacion "Soldada de parrilla"
+    :observaciones "KM 18789"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 134
+    :fecha_reparacion "2021-02-11"
+    :desc_reparacion "Se le recorto la cadena"
+    :observaciones "KM 19180"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 135
+    :fecha_reparacion "2021-02-16"
+    :desc_reparacion "Cambio de chicote del clochs generico"
+    :observaciones "KM 19473"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 136
+    :fecha_reparacion "2021-03-01"
+    :desc_reparacion "Refresada de parrilla de carga"
+    :observaciones "KM 20247"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 137
+    :fecha_reparacion "2021-03-26"
+    :desc_reparacion "Cambio de cadena"
+    :observaciones "KM 21722"
+    :vehiculo_id 4
+    :sucursal_id 15}
+   {:id 138
+    :fecha_reparacion "2019-03-02"
+    :desc_reparacion "Cambio de llanta trasera shinko"
+    :observaciones "KM 41030"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 139
+    :fecha_reparacion "2020-02-04"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 42396"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 140
+    :fecha_reparacion "2020-04-23"
+    :desc_reparacion "Cambio de balatas traseras"
+    :observaciones "KM 45416"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 141
+    :fecha_reparacion "2020-05-22"
+    :desc_reparacion "Cambio de sprock delantero"
+    :observaciones "KM"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 142
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 47203"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 143
+    :fecha_reparacion "2020-07-17"
+    :desc_reparacion "Cambio de palanca del clochs"
+    :observaciones "KM 49534"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 144
+    :fecha_reparacion "2020-07-30"
+    :desc_reparacion "Lavada del carburador"
+    :observaciones "KM 49991"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 145
+    :fecha_reparacion "2020-08-12"
+    :desc_reparacion "Cambio de chicote del clochs"
+    :observaciones "KM 50231"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 146
+    :fecha_reparacion "2020-09-12"
+    :desc_reparacion "Cambio de cadena y reparacion de barrilla freno trasero"
+    :observaciones "KM 51842"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 147
+    :fecha_reparacion "2020-09-18"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 52043"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 148
+    :fecha_reparacion "2020-10-03"
+    :desc_reparacion "Cambio del chicote del clochs"
+    :observaciones "KM 52674"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 149
+    :fecha_reparacion "2020-10-22"
+    :desc_reparacion "Cambio del rin trasero y balatas traseras y delanteras japan isk"
+    :observaciones "KM 53433"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 150
+    :fecha_reparacion "2020-12-22"
+    :desc_reparacion "Cambio de barrilla del freno trasero"
+    :observaciones "KM 56008"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 151
+    :fecha_reparacion "2021-01-12"
+    :desc_reparacion "Cambio de llanta delantera shinko"
+    :observaciones "KM 56074"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 152
+    :fecha_reparacion "2021-01-19"
+    :desc_reparacion "Cambio del chicote del clochs"
+    :observaciones "KM 56230"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 153
+    :fecha_reparacion "2021-04-08"
+    :desc_reparacion "Lavada de carburador"
+    :observaciones "KM 59144"
+    :vehiculo_id 13
+    :sucursal_id 12}
+   {:id 154
+    :fecha_reparacion "2019-12-30"
+    :desc_reparacion "Cambio de foco x una barra led"
+    :observaciones "KM 28424"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 155
+    :fecha_reparacion "2020-01-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM 30037"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 156
+    :fecha_reparacion "2020-03-05"
+    :desc_reparacion "Cambio del chicote del clochs"
+    :observaciones "KM 31826"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 157
+    :fecha_reparacion "2020-03-13"
+    :desc_reparacion "Cambio de cadena sprock trasero y delantero"
+    :observaciones "KM 32330"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 158
+    :fecha_reparacion "2020-04-15"
+    :desc_reparacion "Cambio de bateria lth"
+    :observaciones "KM 34187"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 159
+    :fecha_reparacion "2020-05-28"
+    :desc_reparacion "Cambio de Aceite"
+    :observaciones "KM 36563"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 160
+    :fecha_reparacion "2020-06-02"
+    :desc_reparacion "Cambio de balatas"
+    :observaciones "KM 36930"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 161
+    :fecha_reparacion "2020-07-09"
+    :desc_reparacion "Cambio de llanta delantera aktib"
+    :observaciones "KM 39498"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 162
+    :fecha_reparacion "2020-08-21"
+    :desc_reparacion "Cambio de llanta trasera shinko"
+    :observaciones "KM 42260"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 163
+    :fecha_reparacion "2020-09-01"
+    :desc_reparacion "Cambio de balatas delanteras isk"
+    :observaciones "KM 43056"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 164
+    :fecha_reparacion "2020-09-18"
+    :desc_reparacion "Cambio de aceite"
+    :observaciones "KM 43990"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 165
+    :fecha_reparacion "2020-09-30"
+    :desc_reparacion "Cambio de balatas traseras"
+    :observaciones "KM 44561"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   {:id 166
+    :fecha_reparacion "2020-02-03"
+    :desc_reparacion "Cambio de cadena y sprock trasero"
+    :observaciones "KM 36930"
+    :vehiculo_id 6
+    :sucursal_id 1}
+   ])
 ;; End bitacora table
 
 (defn create-database

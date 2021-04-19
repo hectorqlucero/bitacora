@@ -10,6 +10,17 @@
   (list
     [:input {:type "hidden" :id "id" :name "id"}]
     (build-field
+      {:id "sucursal_id"
+       :name "sucursal_id"
+       :class "easyui-combobox"
+       :prompt "Por favor seleccione"
+       :data-options "label:'Sucursal:',
+                     labelPosition:'top',
+                     url:'/table_ref/sucursales',
+                     method:'GET',
+                     required:true,
+                     width:'100%'"})
+    (build-field
       {:id "vehiculo_id"
        :name "vehiculo_id"
        :class "easyui-combobox"

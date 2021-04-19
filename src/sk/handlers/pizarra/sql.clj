@@ -15,15 +15,11 @@
 
 (def vehiculos-sql
   "SELECT
-  s.sucursal,
   v.vehiculo,
   v.num_serie,
   v.modelo,
   v.modelo_ano,
-  c.chofer
   FROM vehiculos v
-  LEFT JOIN choferes c on v.chofer_asignado = c.id
-  LEFT JOIN sucursales s on v.sucursal = s.id
   WHERE v.sucursal = ?")
 
 ;; Start bitacora
@@ -31,7 +27,6 @@
   "SELECT
   b.id,
   s.sucursal,
-  c.chofer,
   v.vehiculo,
   v.num_serie,
   v.modelo,
@@ -41,14 +36,13 @@
   b.desc_reparacion,
   b.observaciones
   FROM bitacora b
-  LEFT JOIN vehiculos v on b.vehiculo_id = v.id
-  LEFT JOIN sucursales s on v.sucursal = s.id
-  LEFT JOIN choferes c on v.chofer_asignado = c.id
-  WHERE v.sucursal = ?
+  LEFT JOIN vehiculos v on v.id = b.vehiculo_id
+  LEFT JOIN sucursales s on s.id = b.sucursal_id
+  WHERE b.sucursal_id = ?
   ORDER BY s.sucursal,fecha desc")
 
-(defn bitacoras []
-  (Query db bitacora-sql))
+(defn bitacoras [sucursal_id]
+  (Query db [bitacora-sql sucursal_id]))
 ;; End bitacoraa
 
 ;; Start inv_vehiculos
@@ -65,12 +59,12 @@
   i.lec_odometro,
   DATE_FORMAT(i.fecha,'%m/%d/%Y') as fecha
   FROM inv_vehiculos i
-  LEFT JOIN vehiculos v on i.vehiculo_id = v.id
-  LEFT JOIN choferes c on v.chofer_asignado = c.id
-  LEFT JOIN sucursales s on v.sucursal = s.id
-  WHERE v.sucursal = ?
-  ORDER BY v.sucursal,i.fecha desc")
+  LEFT JOIN vehiculos v on v.id = i.vehiculo_id
+  LEFT JOIN choferes c on c.id = i.chofer_id
+  LEFT JOIN sucursales s on s.id = i.sucursal_id
+  WHERE i.sucursal_id = ?
+  ORDER BY s.sucursal,i.fecha desc")
 
-(defn inv_vehiculos []
-  (Query db inv_vehiculos-sql))
+(defn inv_vehiculos [sucursal_id]
+  (Query db [inv_vehiculos-sql sucursal_id]))
 ;; End inv_vehiculos

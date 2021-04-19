@@ -21,14 +21,24 @@
 
 ;; Start inventario grid
 (def grid-aliases
-  (conj (build-grid-columns "inv_vehiculos") "vehiculo_id as vehiculo_id_extra"))
+  (conj (build-grid-columns "inv_vehiculos")
+        (str " vehiculos.vehiculo as vehiculo_id_formatted,"
+             " choferes.chofer as chofer_id_formatted,"
+             " vehiculos.num_serie as num_serie,"
+             " sucursales.sucursal as sucursal_id_formatted")))
+
+(def grid-join
+  (str " JOIN vehiculos on vehiculos.id = inv_vehiculos.vehiculo_id"
+       " JOIN choferes on choferes.id = inv_vehiculos.chofer_id"
+       " JOIN sucursales on sucursales.id = inv_vehiculos.sucursal_id"))
 
 (defn inventario-grid
   [{params :params}]
   (try
     (let [table "inv_vehiculos"
-          args {:sort-extra "fecha desc"
-                :aliases grid-aliases}]
+          args {:sort-extra "inv_vehiculos.fecha desc"
+                :aliases grid-aliases
+                :join grid-join}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 ;; End inventario grid

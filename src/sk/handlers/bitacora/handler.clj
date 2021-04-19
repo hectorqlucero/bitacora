@@ -33,7 +33,7 @@
 
 (def bitacora-join
   "LEFT JOIN vehiculos on vehiculos.id = bitacora.vehiculo_id
-  LEFT JOIN sucursales on sucursales.id = vehiculos.sucursal")
+  LEFT JOIN sucursales on sucursales.id = bitacora.sucursal_id")
 
 (defn bitacora-grid
   [{params :params}]

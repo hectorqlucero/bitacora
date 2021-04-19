@@ -37,7 +37,6 @@
 (defn build-bitacoras-row [row]
   [:tr
    [:td (:sucursal row)]
-   [:td (:chofer row)]
    [:td (:vehiculo row)]
    [:td (:num_serie row)]
    [:td (:modelo row)]
@@ -55,7 +54,6 @@
    [:thead.thead-light
     [:tr
      [:th {:scope "col"} "Sucursal"]
-     [:th {:scope "col"} "Chofer"]
      [:th {:scope "col"} "Vehiculo"]
      [:th {:scope "col"} "Numero de Serie"]
      [:th {:scope "col"} "Modelo"]
@@ -101,19 +99,6 @@
      (build-inv_vehiculos-table-body rows)]]])
 ;; End ivn_vehiculos table
 
-; (defn pizarra-view [title]
-;   (list
-;     [:h3 {:style "text-align:center;"} title]
-;     [:h4 "Vehiculos"]
-;     [:div.table-responsive
-;      (build-vehiculos-table)]
-;     [:h4 "Bitacora"]
-;     [:div.table-responsive
-;      (build-bitacora-table)]
-;     [:h4 "Inventario de Vehiculos"]
-;     [:div.table-responsive
-;      (build-inv_vehiculos-table)]))
-
 (defn pizarra-process-view
   [title vrows brows irows]
   (list
@@ -136,9 +121,6 @@
                        window.location.replace(uri);
                        }"})]]
     [:h3 {:style "text-align:center;"} title]
-    [:h4 "Vehiculos"]
-    [:div.table-responsive
-     (build-vehiculos-table vrows)]
     [:h4 "Bitacora"]
     [:div.table-responsive
      (build-bitacora-table brows)]

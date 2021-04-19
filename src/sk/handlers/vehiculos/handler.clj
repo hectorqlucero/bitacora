@@ -23,7 +23,7 @@
   [{params :params}]
   (try
     (let [table "vehiculos"
-          args {:sort-extra "sucursal,vehiculo"}]
+          args {:sort-extra "vehiculo"}]
       (build-grid params table args))
     (catch Exception e (.getMessage e))))
 
